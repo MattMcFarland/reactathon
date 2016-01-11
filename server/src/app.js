@@ -1,5 +1,5 @@
 /**
- * Import Node Modules |||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ * Import Node Modules |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  */
 import {
   express,
@@ -17,7 +17,7 @@ import {
 } from './modules';
 
 /**
- * Import Routes  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ * Import Routes  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  */
 import {
   api,
@@ -26,23 +26,22 @@ import {
 
 
 // =============================================================================
-//    _____                 _                      _   _
-//   |  __ \               | |                    | | | |
-//   | |__) |___  __ _  ___| |_ ______ __ _ ______| |_| |__   ___  _ __
-//   |  _  // _ \/ _` |/ __| __|______/ _` |______| __| '_ \ / _ \| '_ \
-//   | | \ \  __/ (_| | (__| |_      | (_| |      | |_| | | | (_) | | | |
-//   |_|  \_\___|\__,_|\___|\__|      \__,_|       \__|_| |_|\___/|_| |_|
-//   https://github.com/MattMcFarland/reactathon
+//     ___               __               __  __
+//    / _ \___ ___ _____/ /________ _____/ /_/ /  ___  ___
+//   / , _/ -_) _ `/ __/ __/___/ _ `/___/ __/ _ \/ _ \/ _ \
+//  /_/|_|\__/\_,_/\__/\__/    \_,_/    \__/_//_/\___/_//_/
+//
+//  https://github.com/MattMcFarland/reactathon
 // =============================================================================
 
 // Globals
 const app = express();
 const staticpath = path.join(
-  __dirname, '../node_modules/codepix-client/lib/public'
+  __dirname, './public'
 );
 const store = new FileStore();
 
-/*  App Setup  ----------------------------------------------------------- */
+/*  App Setup  -------------------------------------------------------------  */
 {
 
   // view engine setup
@@ -53,7 +52,6 @@ const store = new FileStore();
   const shouldCompress = (req, res) => {
     if (req.headers['x-no-compression']) {
       // don't compress responses with this request header
-      console.log('no compression');
       return false;
     }
     // fallback to standard filter function
@@ -68,7 +66,7 @@ const store = new FileStore();
   app.use(favicon(path.join(staticpath, 'favicon.ico')));
 }
 
-/*  Server I/O  ---------------------------------------------------------- */
+/*  Server I/O  ------------------------------------------------------------  */
 {
 
   // i/o middlewares
@@ -77,7 +75,7 @@ const store = new FileStore();
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(session({
     secret: 'K7@*{GwHdq1@+ChhB%|M|r$1JkW|15ip^Kwguq#^ETD',
-    name: '_codepix',
+    name: '_reactathon',
     resave: true,
     saveUninitialized: true,
     store
@@ -87,7 +85,7 @@ const store = new FileStore();
   app.use(passport.session());
 }
 
-/* Router setup  --------------------------------------------------------- */
+/* Router setup  -----------------------------------------------------------  */
 {
 
   // app.use(sessionInfo());
@@ -101,15 +99,8 @@ const store = new FileStore();
 
   // Static paths
   app.use(express.static(staticpath));
-  app.use('/c0dez/data', express.static('data'));
 
   // api endpoint
-  app.use('/api', (req, res, next) => {
-    if (app.get('rasterizer')) {
-      req.rasterizer = app.get('rasterizer');
-    }
-    next();
-  });
   app.use('/api', api);
 
   // root endpoint
@@ -117,7 +108,7 @@ const store = new FileStore();
 
 }
 
-/* Error handlers */
+/* Error handlers  ---------------------------------------------------------  */
 {
   // Not to be confused with exception handling, these errors are for
   // outputting a response for caught exceptions only.
