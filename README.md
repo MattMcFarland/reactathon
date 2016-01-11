@@ -12,9 +12,10 @@
 ### A React-App on steroids
 
 This is to serve as a starting point for those who want to rapidly build and
-deploy a web-app using React, Relay, React-Router, Express, and much more
-using the EcmaScript 7 experimental specs.  Some of this boilerplate includes
-experimental technology, so use at your own risk.
+deploy an SEO-Ready WebApp with User Authentication and oAuth2 support web-app
+using React, Relay, React-Router, Express, and much more!
+> Some of this boilerplate includes experimental technology, so use at your
+own risk.
 
 ### Tested System Requirements
 - Mac OSX or Linux
