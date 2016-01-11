@@ -12,7 +12,7 @@
 ### A React-App on steroids
 
 This is to serve as a starting point for those who want to rapidly build and
-deploy an SEO-Ready WebApp with User Authentication and oAuth2 support web-app
+deploy an SEO-Ready WebApp with User Authentication and oAuth2 support
 using React, Relay, React-Router, Express, and much more!
 > Some of this boilerplate includes experimental technology, so use at your
 own risk.
