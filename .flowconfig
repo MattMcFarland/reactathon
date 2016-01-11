@@ -1,0 +1,13 @@
+[ignore]
+.*/coverage/.*
+.*/scripts/.*
+.*/node_modules/.*
+.*/public/.*
+.*/dist/.*
+
+[include]
+
+[libs]
+flow
+
+[options]
