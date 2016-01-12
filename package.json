@@ -111,5 +111,16 @@
     "gulp-util": "^3.0.7",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattMcFarland/reactathon.git"
+  },
+  "author": "Matt McFarland",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MattMcFarland/reactathon/issues"
+  },
+  "homepage": "https://github.com/MattMcFarland/reactathon#readme"
 }
