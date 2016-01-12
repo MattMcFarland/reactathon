@@ -46,7 +46,7 @@ import {
 // =============================================================================
 
 // Globals
-dotenv.load({ path: '.env.example' });
+dotenv.load({ path: path.join(__dirname, 'env-example') });
 
 
 const app = express();

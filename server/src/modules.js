@@ -17,4 +17,4 @@ export const sessionInfo = require('session-passport-info');
 export const schema = require('./schema').default;
 export const graph = require('express-graphql');
 export const appConfig = require('./app.config');
-export const dotenv = require('./dotenv');
+export const dotenv = require('dotenv');
