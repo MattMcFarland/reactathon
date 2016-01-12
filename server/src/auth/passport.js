@@ -295,7 +295,7 @@ passport.deserializeUser(function (user, done) {
       callbackURL: '/auth/tumblr/callback',
       passReqToCallback: true
     },
-    function (req, token, tokenSecret, profile, done) {
+    (req, token, tokenSecret, profile, done) => {
       User.findOne({ where: {id: req.user.id} }).then(user => {
         user.createToken({
           kind: 'tumblr',
@@ -318,7 +318,7 @@ passport.deserializeUser(function (user, done) {
       callbackURL: process.env.VENMO_REDIRECT_URL,
       passReqToCallback: true
     },
-    function (req, accessToken, tokenSecret, profile, done) {
+    (req, accessToken, tokenSecret, profile, done) => {
       User.findOne({ where: {id: req.user.id} }).then(user => {
         user.createToken({
           kind: 'venmo',
@@ -339,7 +339,7 @@ passport.deserializeUser(function (user, done) {
     returnURL: 'http://localhost:3000/auth/steam/callback',
     realm: 'http://localhost:3000/',
     stateless: true
-  }, function (identifier, done) {
+  }, (identifier, done) => {
     var steamId = identifier.match(/\d+$/)[0];
     var profileURL =
       'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' +
