@@ -42,7 +42,13 @@ import {
 // Globals
 const app = express();
 const staticPath = path.join(
-  __dirname, './public'
+  __dirname, '/public'
+);
+const jsPath = path.join(
+  __dirname, '../bundles/js'
+);
+const stylePath = path.join(
+  __dirname, '../bundles/style'
 );
 const store = new FileStore();
 app.set('config', appConfig);
@@ -116,6 +122,8 @@ app.set('config', appConfig);
 /* Router setup  -----------------------------------------------------------  */
 {
 
+
+
   // app.use(sessionInfo());
 
   app.use('/graphql', graph(req => ({
@@ -128,6 +136,8 @@ app.set('config', appConfig);
 
   // Static paths
   app.use(express.static(staticPath));
+  app.use('/js', express.static(jsPath));
+  app.use('/style', express.static(stylePath));
 
   // api endpoint
   app.use('/api', api);

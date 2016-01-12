@@ -32,9 +32,9 @@ gulp.task('watch-server', () => {
   });
 });
 
-gulp.task('watch-update-client', ['nodemon'], () => {
+gulp.task('watch-lib', ['nodemon'], () => {
   browserSync.init(null, {
-    proxy: 'http://localhost:3000',
+    proxy: 'http://localhost:3030',
     reloadDelay: 50,
     reloadDebounced: 50,
     online: false,
@@ -46,16 +46,16 @@ gulp.task('watch-update-client', ['nodemon'], () => {
   });
 });
 
-gulp.task('watch-bundle-client', function (cb) {
+gulp.task('watch-client', function (cb) {
 
   var started = false;
 
   return nodemon({
     restartable: 'rs',
     verbose: false,
-    exec: 'npm start',
+    exec: 'gulp bundle',
     watch: [
-    'src/**/*.js'
+    'client/src/**/*.js'
   ],
     env: {
     NODE_ENV: 'development'
@@ -70,22 +70,41 @@ gulp.task('watch-bundle-client', function (cb) {
 });
 
 
+gulp.task('nodemon', function (cb) {
+
+  var started = false;
+
+  return nodemon({
+    restartable: 'rs',
+    verbose: false,
+    env: {
+      NODE_ENV: 'development'
+    },
+    ext: 'js json'
+  }).on('start', () => {
+    if (!started) {
+      cb();
+      started = true;
+    }
+  });
+});
+
 
 
 
 
 
 gulp.task('bundle-vendor', (done) =>
-  bundledeps('vendor', 'lib/public/js/vendor', done)
+  bundledeps('vendor', 'bundles/js/vendor', done)
 );
 gulp.task('bundle', () =>
-  bundlemin('client/src/main', 'main', 'lib/public/js')
+  bundlemin('client/src/main', 'main', 'bundles/js')
 );
 gulp.task('bundle-dev', () =>
-  bundle('client/src/main', 'main.min', 'lib/public/js')
+  bundle('client/src/main', 'main.min', 'bundles/js')
 );
 gulp.task('sass', () =>
-  sass('client/src/style/main.scss', 'main', 'lib/public/style')
+  sass('client/src/style/main.scss', 'main', 'bundles/style')
 );
 
 gulp.task('build', ['bundle-vendor', 'bundle', 'sass']);
