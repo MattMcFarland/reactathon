@@ -33,27 +33,28 @@ import { Layout } from './Layout';
 import {
   Home,
   Article,
+  ArticleList,
   Page,
-  Tags,
+  TagList,
   NoMatch
 } from './containers';
 
-
+/*
 const CardQueries = {
   cards: () => Relay.QL`query { store }`
 };
-
+*/
 
 render((
   <RelayRouter history={browserHistory}>
     <Route path="/" component={Layout}>
       <IndexRoute component={Home} />
       <Route path="/" component={Home}/>
-      <Route path="make" component={Proto}/>
-      <Route
-        path="list" component={List}
-        queries={CardQueries}/>
-      <Route path="/code/:id" component={Single}/>
+      <Route path="/page/:id" component={Page}/>
+      <Route path="articles" component={ArticleList} />
+      <Route path="/articles/:id" component={Article}/>
+      <Route path="tags" component={TagList}/>
+      <Route path="/tags/:id" component={Tag}/>
       <Route path="*" component={NoMatch}/>
     </Route>
   </RelayRouter>

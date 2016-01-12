@@ -8,9 +8,9 @@ import {
   Button,
   NavDropdown
 } from 'react-bootstrap';
-import { SignupForm, LoginForm } from './';
-import { AppActions } from '../actions/AppActions';
-import { AppStore } from '../stores/AppStore';
+import { SignupForm, LoginForm } from './components';
+import { AppActions } from './actions/AppActions';
+import { AppStore } from './stores/AppStore';
 import NotificationSystem from 'react-notification-system';
 
 
