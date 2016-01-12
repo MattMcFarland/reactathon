@@ -13,6 +13,8 @@ by [Sahat Yalkabov](https://github.com/sahat)
 
 ### Rapid start
 > For more info see [Getting Started](#getting-started)
+
+
 ```sh
   git clone https://github.com/MattMcFarland/reactathon.git &&
   cd reactathon && npm install && npm run dev
