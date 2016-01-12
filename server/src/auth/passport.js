@@ -38,48 +38,6 @@ passport.use('local', new LocalStrategy(
   }
 ));
 
-export const isAuthenticated = (req, res, next) => {
-  if (!req.isAuthenticated()) {
-    req.isAuthenticated = false;
-  } else {
-    req.isAuthenticated = true;
-  }
-  next();
-};
-
-export function getUser() {
-  return function (req, res, next) {
-    // console.log(req.session);
-    passport.authenticate('local', function () {
-      // console.log(err, user, info);
-      next();
-    })(req, res, next);
-  };
-}
-
-export function onAuthenticate() {
-  return function (req, res, next) {
-    // console.log('\n', req.body, '\n');
-    passport.authenticate('local', function (err, user, info) {
-      // console.log(err, info);
-      if (err) {
-        return next(err);
-      }
-      if (!user) {
-        res.status(401);
-        res.json(info);
-        return next();
-      }
-      req.logIn(user, function (loginErr) {
-        if (loginErr) {
-          return next(loginErr);
-        }
-        res.json(user);
-      });
-    })(req, res, next);
-  };
-}
-
 
 export function login() {
   return function (req, res, next) {

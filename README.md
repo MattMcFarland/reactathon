@@ -8,6 +8,17 @@
  https://github.com/MattMcFarland/reactathon
  ```
 
+### Under active development
+
+#### Current TODOS:
+
+ - [ ] Add oAuth2 passports
+ - [ ] Add Example APIS
+ - [ ] Add DB Seeder
+ - [ ] Add Relay Views
+ - [ ] Add Stack Info
+ - [ ] User dashboard
+
 ### A React-App on steroids
 
 This is to serve as a starting point for those who want to rapidly build and
