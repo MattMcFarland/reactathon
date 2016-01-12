@@ -12,7 +12,7 @@
 
 #### Current TODOS:
 
- - [ ] Add oAuth2 passports
+ - [ ] Add oAuth2 passports (partially completed)
  - [ ] Add Example APIS
  - [ ] Add DB Seeder
  - [ ] Add Relay Views
