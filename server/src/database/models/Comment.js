@@ -78,10 +78,10 @@ module.exports = function (sequelize, DataTypes) {
         associate: (models) => {
           Comment.belongsTo(models.User, {as: 'Author'});
           Comment.belongsTo(models.User, {as: 'Editor'});
-          Comment.belongsTo(models.Card, {
-            foreignKey: 'card_commentable_id',
+          Comment.belongsTo(models.Article, {
+            foreignKey: 'article_commentable_id',
             constraints: false,
-            as: 'card'
+            as: 'article'
           });
           Comment.hasMany(models.Flag, {
             foreignKey: 'comment_flaggable_id',

@@ -20,10 +20,10 @@ module.exports = function (sequelize, DataTypes) {
     classMethods: {
       associate: (models) => {
         Flag.belongsTo(models.User, {as: 'Flagger' });
-        Flag.belongsTo(models.Card, {
-          foreignKey: 'card_flaggable_id',
+        Flag.belongsTo(models.Article, {
+          foreignKey: 'article_flaggable_id',
           constraints: false,
-          as: 'card'
+          as: 'article'
         });
         Flag.belongsTo(models.Comment, {
           foreignKey: 'comment_flaggable_id',

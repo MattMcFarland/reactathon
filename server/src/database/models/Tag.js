@@ -23,12 +23,12 @@ module.exports = function (sequelize, DataTypes) {
       classMethods: {
         associate: (models) => {
           // Tag.hasMany(models.Tag, {as: 'similarTags'});
-          Tag.belongsToMany(models.Card, {
+          Tag.belongsToMany(models.Article, {
             through: {
               model: models.TagItem,
               unique: false
             },
-            foreignKey: 'card_tag_id'
+            foreignKey: 'article_tag_id'
           });
         }
       }

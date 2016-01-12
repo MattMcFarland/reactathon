@@ -15,3 +15,4 @@ export const FileStore = require('session-file-store')(session);
 export const sessionInfo = require('session-passport-info');
 export const schema = require('./schema').default;
 export const graph = require('express-graphql');
+export const appConfig = require('./app.config');

@@ -19,11 +19,11 @@ module.exports = function (sequelize, DataTypes) {
         // User.hasMany(models.Group);
         // User.hasMany(models.User, {as: 'connection'});
         // User.hasMany(models.Action, {as: 'history'});
-        User.hasMany(models.Card, {
-          as: 'authoredCards' , foreignKey: 'AuthorId'
+        User.hasMany(models.Article, {
+          as: 'authoredArticles' , foreignKey: 'AuthorId'
         });
-        User.hasMany(models.Card, {
-          as: 'editedCards' , foreignKey: 'EditorId'
+        User.hasMany(models.Article, {
+          as: 'editedArticles' , foreignKey: 'EditorId'
         });
         User.hasMany(models.Comment, {
           as: 'authoredComments' , foreignKey: 'AuthorId'

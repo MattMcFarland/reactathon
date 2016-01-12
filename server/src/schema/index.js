@@ -1,5 +1,5 @@
 import {
-  Card,
+  Article,
   Comment,
   Flag,
   Tag,
@@ -62,8 +62,8 @@ var {nodeInterface, nodeField} = nodeDefinitions(
   (globalId) => {
     var {type, id} = fromGlobalId(globalId);
     switch (type) {
-      case 'Card':
-        return Card.findByPrimary(id);
+      case 'Article':
+        return Article.findByPrimary(id);
       case 'Comment':
         return Comment.findByPrimary(id);
       case 'Flag':
@@ -81,8 +81,8 @@ var {nodeInterface, nodeField} = nodeDefinitions(
   },
   (obj) => {
     switch (obj.type) {
-      case 'cardType':
-        return cardType;
+      case 'articleType':
+        return articleType;
       case 'commentType':
         return commentType;
       case 'flagType':
@@ -99,88 +99,88 @@ var {nodeInterface, nodeField} = nodeDefinitions(
   }
 );
 
-var cardType = new GraphQLObjectType({
-  name: 'Card',
+var articleType = new GraphQLObjectType({
+  name: 'Article',
   description: 'This is a description',
   fields: () => ({
     id: globalIdField(),
     dateCreated: {
       type: GraphQLString,
-      resolve: card => card.createdAt
+      resolve: article => article.createdAt
     },
     dateModified: {
       type: GraphQLString,
-      resolve: card => card.updatedAt
+      resolve: article => article.updatedAt
     },
     title: {
       type: GraphQLString,
-      description: 'User defined title of the card',
-      resolve: card => card.title
+      description: 'User defined title of the article',
+      resolve: article => article.title
     },
     description: {
       type: GraphQLString,
-      description: 'User defined description of the card ',
-      resolve: card => card.description
+      description: 'User defined description of the article ',
+      resolve: article => article.description
     },
     content: {
       description: 'Code that is in the pic',
       type: GraphQLString,
-      resolve: card => card.content
+      resolve: article => article.content
     },
     shareUrl: {
       type: GraphQLString,
-      resolve: card => card.shareUrl
+      resolve: article => article.shareUrl
     },
     imageUrl: {
       type: GraphQLString,
-      resolve: card => card.imageUrl
+      resolve: article => article.imageUrl
     },
     size: {
       type: GraphQLInt,
-      resolve: card => card.size
+      resolve: article => article.size
     },
     width: {
       type: GraphQLInt,
-      resolve: card => card.width
+      resolve: article => article.width
     },
     height: {
       type: GraphQLInt,
-      resolve: card => card.height
+      resolve: article => article.height
     },
     visibility: {
       type: GraphQLString,
-      resolve: card => card.visibility
+      resolve: article => article.visibility
     },
     score: {
       type: GraphQLInt,
-      resolve: card => card.score
+      resolve: article => article.score
     },
     downVoteCount: {
       type: GraphQLInt,
-      resolve: card => card.downVoteCount
+      resolve: article => article.downVoteCount
     },
     upVoteCount: {
       type: GraphQLInt,
-      resolve: card => card.upVoteCount
+      resolve: article => article.upVoteCount
     },
     author: {
       type: userType,
-      resolve: card => card.getAuthor()
+      resolve: article => article.getAuthor()
     },
     editor: {
       type: userType,
-      resolve: card => card.getEditor()
+      resolve: article => article.getEditor()
     },
     shasum: {
       type: GraphQLString,
-      resolve: card => card.shasum
+      resolve: article => article.shasum
     }
   }),
   interfaces: [nodeInterface]
 });
 
-var {connectionType: cardConnection} =
-  connectionDefinitions({nodeType: cardType});
+var {connectionType: articleConnection} =
+  connectionDefinitions({nodeType: articleType});
 
 
 var commentType = new GraphQLObjectType({
@@ -219,10 +219,10 @@ var commentType = new GraphQLObjectType({
       description: 'Identifies the object type which this comment belongs to',
       resolve: comment => comment.commentable
     },
-    card: {
-      description: 'Returns the Card that has been commented ',
-      type: cardType,
-      resolve: comment => comment.getCard()
+    article: {
+      description: 'Returns the Article that has been commented ',
+      type: articleType,
+      resolve: comment => comment.getArticle()
     },
     votes: {
       type: voteConnection,
@@ -302,12 +302,12 @@ var tagType = new GraphQLObjectType({
       resolve: (tag, args) =>
         connectionFromPromisedArray(resolveArrayData(tag.getTags()), args)
     },
-    cards: {
-      type: cardConnection,
-      description: 'list of cards this tag is connected to.',
+    articles: {
+      type: articleConnection,
+      description: 'list of articles this tag is connected to.',
       args: connectionArgs,
       resolve: (tag, args) =>
-        connectionFromPromisedArray(resolveArrayData(tag.getCards()), args)
+        connectionFromPromisedArray(resolveArrayData(tag.getArticles()), args)
     },
     name: {
       type: GraphQLString,
@@ -350,13 +350,13 @@ var userType = new GraphQLObjectType({
       description: 'URL to user avatar',
       resolve: (user => fromGravatar(user.email, 'thumbnailUrl'))
     },
-    authoredCards: {
-      type: cardConnection,
-      description: 'Retrieve Cards made by user.',
+    authoredArticles: {
+      type: articleConnection,
+      description: 'Retrieve Articles made by user.',
       args: connectionArgs,
       resolve: (user, args) =>
         connectionFromPromisedArray(
-          resolveArrayData(user.getAuthoredCards()),
+          resolveArrayData(user.getAuthoredArticles()),
           args
         )
     },
@@ -407,10 +407,10 @@ var flagType = new GraphQLObjectType({
       description: 'Identifies the object type that has been flagged',
       resolve: flag => flag.flaggable
     },
-    card: {
-      description: 'Returns the Card that has been flagged or null ',
-      type: cardType,
-      resolve: flag => flag.getCard()
+    article: {
+      description: 'Returns the Article that has been flagged or null ',
+      type: articleType,
+      resolve: flag => flag.getArticle()
     },
     comment: {
       description: 'Returns the Comment that has been flagged or null ' +
@@ -446,9 +446,9 @@ var voteType = new GraphQLObjectType({
       description: 'Identifies the object type that has been voteged',
       resolve: vote => vote.votable
     },
-    card: {
-      description: 'Returns the Card that has been voted or null ',
-      type: cardType,
+    article: {
+      description: 'Returns the Article that has been voted or null ',
+      type: articleType,
       resolve: vote => vote.getRequest()
     },
     comment: {
@@ -509,12 +509,12 @@ var CodePixAPI = new GraphQLObjectType({
       resolve: (root, args) =>
         connectionFromPromisedArray(resolveModelsByClass(Flag), args)
     },
-    cards: {
-      description: 'Cards with Codepix',
-      type: cardConnection,
+    articles: {
+      description: 'Articles',
+      type: articleConnection,
       args: connectionArgs,
       resolve: (root, args) =>
-        connectionFromPromisedArray(resolveModelsByClass(Card), args)
+        connectionFromPromisedArray(resolveModelsByClass(Article), args)
     },
     node: nodeField
   })

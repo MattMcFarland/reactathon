@@ -1,11 +1,11 @@
 module.exports = function (sequelize, DataTypes) {
 
-  var Card = sequelize.define('Card',
+  var Article = sequelize.define('Article',
     {
       type: {
         type: new DataTypes.VIRTUAL(DataTypes.STRING),
         get() {
-          return 'cardType';
+          return 'articleType';
         }
       },
       shasum: DataTypes.STRING,
@@ -72,36 +72,36 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: (models) => {
-          Card.belongsTo(models.User, {as: 'Author'});
-          Card.belongsTo(models.User, {as: 'Editor'});
-          Card.hasMany(models.Comment, {
-            foreignKey: 'card_commentable_id',
+          Article.belongsTo(models.User, {as: 'Author'});
+          Article.belongsTo(models.User, {as: 'Editor'});
+          Article.hasMany(models.Comment, {
+            foreignKey: 'article_commentable_id',
             constraints: false,
             scope: {
-              commentable: 'card'
+              commentable: 'article'
             }
           });
-          Card.hasMany(models.Flag, {
-            foreignKey: 'card_flaggable_id',
+          Article.hasMany(models.Flag, {
+            foreignKey: 'article_flaggable_id',
             constraints: false,
             scope: {
-              flaggable: 'card'
+              flaggable: 'article'
             }
           });
-          Card.hasMany(models.Vote, {
-            foreignKey: 'card_votable_id',
+          Article.hasMany(models.Vote, {
+            foreignKey: 'article_votable_id',
             constraints: false,
             scope: {
-              votable: 'card'
+              votable: 'article'
             }
           });
-          Card.belongsToMany(models.Tag, {
+          Article.belongsToMany(models.Tag, {
             through: {
               model: models.TagItem,
               unique: false
             },
             scope: {
-              taggable: 'card'
+              taggable: 'article'
             },
             foreignKey: 'taggable_id',
             constraints: false
@@ -110,5 +110,5 @@ module.exports = function (sequelize, DataTypes) {
         }
       }
     });
-  return Card;
+  return Article;
 };

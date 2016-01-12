@@ -452,3 +452,6 @@ bower_components
 
 # distribution
 lib
+
+# sessions
+sessions

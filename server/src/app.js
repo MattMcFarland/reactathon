@@ -8,12 +8,13 @@ import {
   cookieParser,
   bodyParser,
   compression,
-  expressPhantom,
+  // expressPhantom,
   passport,
   session,
   FileStore,
   schema,
-  graph
+  graph,
+  appConfig
 } from './modules';
 
 /**
@@ -23,6 +24,10 @@ import {
   api,
   root
 } from './routes';
+
+
+
+
 
 
 // =============================================================================
@@ -36,10 +41,17 @@ import {
 
 // Globals
 const app = express();
-const staticpath = path.join(
+const staticPath = path.join(
   __dirname, './public'
 );
 const store = new FileStore();
+app.set('config', appConfig);
+
+
+
+
+
+
 
 /*  App Setup  -------------------------------------------------------------  */
 {
@@ -60,11 +72,19 @@ const store = new FileStore();
   app.use(compression({level: 9, filter: shouldCompress}));
 
   // Using express-phantom to render javascript for search engines.
-  app.use(expressPhantom.SEORender);
+  // -- requires additional setup, disabled by default.
+  // app.use(expressPhantom.SEORender);
 
   // Assuming it better to load favicon early on...
-  app.use(favicon(path.join(staticpath, 'favicon.ico')));
+  app.use(favicon(path.join(staticPath, 'favicon.ico')));
 }
+
+
+
+
+
+
+
 
 /*  Server I/O  ------------------------------------------------------------  */
 {
@@ -85,6 +105,14 @@ const store = new FileStore();
   app.use(passport.session());
 }
 
+
+
+
+
+
+
+
+
 /* Router setup  -----------------------------------------------------------  */
 {
 
@@ -97,8 +125,9 @@ const store = new FileStore();
     graphiql: true
   })));
 
+
   // Static paths
-  app.use(express.static(staticpath));
+  app.use(express.static(staticPath));
 
   // api endpoint
   app.use('/api', api);
@@ -107,6 +136,15 @@ const store = new FileStore();
   app.use('/', root);
 
 }
+
+
+
+
+
+
+
+
+
 
 /* Error handlers  ---------------------------------------------------------  */
 {

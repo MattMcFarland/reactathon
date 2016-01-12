@@ -15,10 +15,10 @@ module.exports = function (sequelize, DataTypes) {
     classMethods: {
       associate: (models) => {
         Vote.belongsTo(models.User, {as: 'Voter' });
-        Vote.belongsTo(models.Card, {
-          foreignKey: 'card_votable_id',
+        Vote.belongsTo(models.Article, {
+          foreignKey: 'article_votable_id',
           constraints: false,
-          as: 'card'
+          as: 'article'
         });
         Vote.belongsTo(models.Comment, {
           foreignKey: 'comment_votable_id',
