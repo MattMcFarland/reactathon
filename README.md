@@ -17,9 +17,25 @@ using React, Relay, React-Router, Express, and much more!
 __Warning__:  Some of this boilerplate includes *experimental* technology,
 so use at your own risk.
 
-### Rapid configuration
+### Getting started
+
+**.1 - Clone the Repo:**
+
+```sh
+git clone https://github.com/MattMcFarland/reactathon.git
+```
+
+**.2 - Install Dependencies:**
+
+```sh
+npm install
+```
+
+**.3 - Edit App config**
 
 Edit `server/src/app.config.js` to setup everything.
+
+**.4 - PROFIT**
 
 ### Tested System Requirements
 - Mac OSX or Linux
