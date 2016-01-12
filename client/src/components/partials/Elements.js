@@ -1,6 +1,11 @@
 import React from 'react';
 import { Collapse } from 'react-bootstrap';
 
+export const Fa = (icon) => (
+  <span className={'fa fa-' + Object.keys(icon).join(' ')}/>
+);
+
+
 export const Logo = ({
   size = 'auto'
   }) => (

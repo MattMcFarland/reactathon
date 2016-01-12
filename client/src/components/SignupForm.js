@@ -144,6 +144,8 @@ export class SignupForm extends React.Component {
       <section>
         {error ? <FormErrors {...error} /> : ''}
         <form onSubmit={handleSubmit}>
+          <h4>Create an Account</h4>
+          <hr/>
           <Input disabled={this.state.signupPending}
                  type="text"
                  label="Username"

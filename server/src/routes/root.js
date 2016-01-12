@@ -3,11 +3,11 @@ import {
   appConfig
 } from './modules';
 
-const rootRoute = express.Router();
+const root = express.Router();
 
 /* GET home page. */
 
-rootRoute.get('*', function (req, res) {
+root.get('*', function (req, res) {
   res.render('root', {
     title: appConfig.www.title,
     description: appConfig.www.description,
@@ -18,5 +18,5 @@ rootRoute.get('*', function (req, res) {
 });
 
 
-export const root = rootRoute;
+export const rootRoute = root;
 

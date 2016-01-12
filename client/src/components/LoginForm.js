@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormErrors } from './partials';
-
+import { Fa, Center } from './partials/Elements';
 import {
   Button,
   Input,
@@ -131,6 +131,16 @@ export class LoginForm extends React.Component {
       <section>
         {error ? <FormErrors {...error} /> : ''}
         <form onSubmit={handleSubmit}>
+          <Center><h4>Login with social account</h4></Center>
+          <hr/>
+          <Button block><Fa github/>&nbsp;Sign in with Github</Button>
+          <Button block><Fa reddit/>&nbsp;Sign in with Reddit</Button>
+          <Button block><Fa google-plus/>&nbsp;Sign in with Google</Button>
+          <Button block><Fa twitter/>&nbsp;Sign in with Twitter</Button>
+          <Button block><Fa facebook/>&nbsp;Sign in with Facebook</Button>
+          <Button block><Fa steam/>&nbsp;Sign in with Steam</Button>
+          <Center><h4>Sign in with local account</h4></Center>
+          <hr/>
           <Input disabled={this.state.loginPending}
                  type="text"
                  label="Username"
@@ -144,10 +154,12 @@ export class LoginForm extends React.Component {
                  label="Password" />
           {this.state.signupPending ?
             <Button disabled>Signing up...</Button> :
-            <ButtonInput bsStyle="primary"
+            <ButtonInput bsStyle="success"
                          type="submit"
                          value="Login" />
-          }
+
+        }
+          <Button pullRight bsStyle="link">Forgot your password?</Button>
         </form>
       </section>
     );

@@ -14,15 +14,17 @@ import {
   FileStore,
   schema,
   graph,
-  appConfig
+  appConfig,
+  dotenv
 } from './modules';
 
 /**
  * Import Routes  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  */
 import {
-  api,
-  root
+  apiRoute,
+  rootRoute,
+  authRoute
 } from './routes';
 
 
@@ -42,6 +44,9 @@ import {
 // =============================================================================
 
 // Globals
+dotenv.load({ path: '.env.example' });
+
+
 const app = express();
 const staticPath = path.join(
   __dirname, '/public'
@@ -101,7 +106,7 @@ app.set('config', appConfig);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(session({
-    secret: 'K7@*{GwHdq1@+ChhB%|M|r$1JkW|15ip^Kwguq#^ETD',
+    secret: process.env.SESSION_SECRET,
     name: '_reactathon',
     resave: true,
     saveUninitialized: true,
@@ -139,12 +144,13 @@ app.set('config', appConfig);
   app.use('/js', express.static(jsPath));
   app.use('/style', express.static(stylePath));
 
-
+  // oAuth endpoints
+  app.use('/auth', authRoute);
   // api endpoint
-  app.use('/api', api);
+  app.use('/api', apiRoute);
 
   // root endpoint
-  app.use('/', root);
+  app.use('/', rootRoute);
 
 }
 
