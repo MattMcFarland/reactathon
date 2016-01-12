@@ -1,13 +1,13 @@
 const _ = require('lodash');
 
 exports.getNPMPackageIds = () => {
-  // read package.json and get dependencies' package ids
+  // read json and get dependencies' package ids
   var packageManifest = {};
   try {
-    packageManifest = require('../package.json');
+    packageManifest = require('../client/client-manifest.json');
   } catch (e) {
-    // does not have a package.json manifest
+    // does not have a client-manifest.json file.
   }
   return _.keys(packageManifest.dependencies) || [];
 
-}
+};

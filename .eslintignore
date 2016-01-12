@@ -1,1 +1,3 @@
 ./flow/**/*
+./tasks/**/*
+./scripts/**/*

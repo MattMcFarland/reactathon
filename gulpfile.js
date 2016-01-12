@@ -1,9 +1,20 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var nodemon = require('gulp-nodemon');
+/* Module Dependencies */
+const gulp = require('gulp');
+const browserSync = require('browser-sync');
+const nodemon = require('gulp-nodemon');
 
+/* Task Dependencies */
+const bundle = require('./tasks/bundle');
+const bundlemin = require('./tasks/bundlemin');
+const bundledeps = require('./tasks/bundledeps');
+const sass = require('./tasks/sass');
 
 gulp.task('default', ['browser-sync']);
+
+
+/**
+ * Task Definitions
+ */
 
 gulp.task('watch-server', () => {
   return nodemon({
@@ -21,7 +32,7 @@ gulp.task('watch-server', () => {
   });
 });
 
-gulp.task('watch-client', ['nodemon'], () => {
+gulp.task('watch-update-client', ['nodemon'], () => {
   browserSync.init(null, {
     proxy: 'http://localhost:3000',
     reloadDelay: 50,
@@ -35,7 +46,7 @@ gulp.task('watch-client', ['nodemon'], () => {
   });
 });
 
-gulp.task('nodemon', function (cb) {
+gulp.task('watch-bundle-client', function (cb) {
 
   var started = false;
 
@@ -57,3 +68,25 @@ gulp.task('nodemon', function (cb) {
     }
   });
 });
+
+
+
+
+
+
+
+gulp.task('bundle-vendor', (done) =>
+  bundledeps('vendor', 'lib/public/js/vendor', done)
+);
+gulp.task('bundle', () =>
+  bundlemin('client/src/main', 'main', 'lib/public/js')
+);
+gulp.task('bundle-dev', () =>
+  bundle('client/src/main', 'main.min', 'lib/public/js')
+);
+gulp.task('sass', () =>
+  sass('client/src/style/main.scss', 'main', 'lib/public/style')
+);
+
+gulp.task('build', ['bundle-vendor', 'bundle', 'sass']);
+gulp.task('dev', ['bundle-dev', 'sass']);
