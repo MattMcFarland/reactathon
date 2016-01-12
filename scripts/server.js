@@ -57,16 +57,16 @@ var watcher = sane(cmd, { glob: ['server/**/*.*', 'client/**/*.*'] })
   .on('change', changeFile);
 
 process.on('SIGINT', function () {
+  console.log(CLEARLINE + yellow(invert('dev server killed')));
   bs.exit();
   flowServer.kill();
   server.kill();
   watcher.close();
-  console.log(CLEARLINE + yellow(invert('dev server killed')));
   process.exit();
 });
 
 process.on('uncaughtException', (err) => {
-  console.log(`Caught exception: ${err}`);
+  console.log(CLEARLINE + red(invert(`Caught exception: ${err}`)));
   bs.exit();
   flowServer.kill();
   server.kill();
