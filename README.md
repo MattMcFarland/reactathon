@@ -61,7 +61,6 @@ Deploy options are further down the guide :)
 ### Tested System Requirements
 - Mac OSX or Linux
 - Node.js v5.3.0
-- PhantomJS must be installed on local/server systems
 - Further testing needed to source our requirements
 
 ### Reactathon bells and whistles include:
