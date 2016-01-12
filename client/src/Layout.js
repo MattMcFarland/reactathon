@@ -94,7 +94,7 @@ export class Layout extends React.Component {
           <Navbar.Header>
             <Navbar.Brand>
               <Link
-                style={{paddingTop: '20px'}}
+                style={{paddingTop: '21px'}}
                 to="/">
                 <Logo />
               </Link>

@@ -18,6 +18,8 @@
  - [ ] Add Relay Views
  - [ ] Add Stack Info
  - [ ] User dashboard
+ - [ ] Sendgrid email
+
 
 ### A React-App on steroids
 
