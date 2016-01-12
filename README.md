@@ -6,7 +6,10 @@
  /_/|_|\__/\_,_/\__/\__/    \_,_/    \__/_//_/\___/_//_/
 
  https://github.com/MattMcFarland/reactathon
- ```
+```
+
+> Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
+by [Sahat Yalkabov](https://github.com/sahat)
 
 ### Under active development
 
@@ -91,3 +94,8 @@ Deploy options are further down the guide :)
 The MIT License
 
 ### Acknowledgements
+
+The codebase is heavily inspired from [Hackathon Starter](https://github.com/sahat/hackathon-starter).
+[Hackathon Starter](https://github.com/sahat/hackathon-starter) was created by Sahat Yalkabov in 2014 and is still very much in active development.
+
+

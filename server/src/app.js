@@ -41,6 +41,8 @@ import {
 //  /_/|_|\__/\_,_/\__/\__/    \_,_/    \__/_//_/\___/_//_/
 //
 //  https://github.com/MattMcFarland/reactathon
+//
+//  Inspired from https://github.com/sahat/hackathon-starter
 // =============================================================================
 
 // Globals
