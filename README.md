@@ -1,12 +1,13 @@
-###  Rapidly deploy a react-app with bells and whistles.
+###  For the rapid deployment of a React/Relay/Router/Node/Authentication/More Web application
+
+> Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
+by [Sahat Yalkabov](https://github.com/sahat)
 
 <p align="center">
   <img src="banner.png"/>
   :wavy_dash: React.js :wavy_dash: Relay.js :wavy_dash: GraphQL :wavy_dash: Sequelize :wavy_dash: Express.js :wavy_dash: Passport.js :wavy_dash:
 </p>
 
-> Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
-by [Sahat Yalkabov](https://github.com/sahat)
 
 
 
