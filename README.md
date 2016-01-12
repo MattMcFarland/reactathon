@@ -35,7 +35,15 @@ npm install
 
 Edit `server/src/app.config.js` to setup everything.
 
-**.4 - PROFIT**
+**.4 - Run the dev server**
+
+```sh
+npm run dev
+```
+
+**.5 - Deploy when ready**
+
+Deploy options are further down the guide :)
 
 ### Tested System Requirements
 - Mac OSX or Linux
