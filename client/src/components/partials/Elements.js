@@ -1,8 +1,10 @@
 import React from 'react';
 import { Collapse } from 'react-bootstrap';
 
-export const Logo = () => (
-  <span style={{fontWeight: 'bold', fontFamily: 'Hack'}}>
+export const Logo = ({
+  size = 'auto'
+  }) => (
+  <span style={{fontWeight: 'bold', fontSize: size, fontFamily: 'Hack'}}>
     <span style={{color: '#E26262'}}>
       React
     </span>
@@ -10,6 +12,13 @@ export const Logo = () => (
       athon
     </span>
   </span>
+);
+export const Center = ({
+  children
+}) => (
+  <section style={{textAlign: 'center'}}>
+    {children}
+  </section>
 );
 
 export const Button = ({
