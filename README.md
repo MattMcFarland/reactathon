@@ -7,6 +7,8 @@
 > Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
 by [Sahat Yalkabov](https://github.com/sahat)
 
+* React.js * Relay.js * GraphQL * Sequelize * Express *
+
 ### Under active development
 
 #### Current TODOS:
