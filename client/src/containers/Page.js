@@ -5,9 +5,7 @@ import marked from 'marked';
 export class Page extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
     ajax.get('/api/page/' + props.params.id, (err, res) => {
       if (err || !res) {
         this.setState({errorPage: true});

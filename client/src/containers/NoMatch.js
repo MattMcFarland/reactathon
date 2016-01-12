@@ -1,8 +1,10 @@
 import React from 'react';
 
 export const NoMatch = () => (
-  <section>
-    <h1>TODO: Update me</h1>
-  </section>
+  <article>
+    <h3>Not Found</h3>
+    <p>Sorry, the page requested was not found</p>
+  </article>
 );
+
 
