@@ -49,9 +49,9 @@ export const isAuthenticated = (req, res, next) => {
 
 export function getUser() {
   return function (req, res, next) {
-    console.log(req.session);
-    passport.authenticate('local', function (err, user, info) {
-      console.log(err, user, info);
+    // console.log(req.session);
+    passport.authenticate('local', function () {
+      // console.log(err, user, info);
       next();
     })(req, res, next);
   };
@@ -59,9 +59,9 @@ export function getUser() {
 
 export function onAuthenticate() {
   return function (req, res, next) {
-    console.log('\n', req.body, '\n');
+    // console.log('\n', req.body, '\n');
     passport.authenticate('local', function (err, user, info) {
-      console.log(err, info);
+      // console.log(err, info);
       if (err) {
         return next(err);
       }
@@ -84,7 +84,7 @@ export function onAuthenticate() {
 export function login() {
   return function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
-      console.log(err, info);
+      // console.log(err, info);
       if (err) {
         return next(err);
       }

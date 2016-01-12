@@ -1,6 +1,17 @@
 import React from 'react';
 import { Collapse } from 'react-bootstrap';
 
+export const Logo = () => (
+  <span style={{fontWeight: 'bold', fontFamily: 'Hack'}}>
+    <span style={{color: '#E26262'}}>
+      React
+    </span>
+    <span style={{color: 'grey'}}>
+      athon
+    </span>
+  </span>
+);
+
 export const Button = ({
   children,
   onClick,

@@ -40,6 +40,7 @@ class AppStoreSpec {
     this.signupPending = false;
   }
 
+
   onLoginPending = () => (this.loginPending = true);
 
   onLoginSuccess(user) {

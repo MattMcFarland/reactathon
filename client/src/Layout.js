@@ -9,10 +9,10 @@ import {
   NavDropdown
 } from 'react-bootstrap';
 import { SignupForm, LoginForm } from './components';
+import { Logo } from './components/partials/Elements';
 import { AppActions } from './actions/AppActions';
 import { AppStore } from './stores/AppStore';
 import NotificationSystem from 'react-notification-system';
-
 
 
 export class Layout extends React.Component {
@@ -42,6 +42,7 @@ export class Layout extends React.Component {
     }
     this.setState(state);
   }
+
 
   render() {
 
@@ -83,14 +84,19 @@ export class Layout extends React.Component {
       );
     }
 
+
+
+
     return (
       <section>
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
               <Link
-                style={{paddingTop: '18px'}}
-                to="/"><img alt="Codepix" src="/img/brand.png"/></Link>
+                style={{paddingTop: '20px'}}
+                to="/">
+                <Logo />
+              </Link>
             </Navbar.Brand>
           </Navbar.Header>
           <Navbar.Toggle />
@@ -152,9 +158,10 @@ export class Layout extends React.Component {
           </Modal>
           : ''}
 
-
         <NotificationSystem ref="notificationSystem" />
       </section>
     );
   }
 }
+
+

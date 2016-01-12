@@ -20,10 +20,9 @@ gulp.task('watch-server', () => {
   return nodemon({
     restartable: 'rs',
     verbose: false,
-    exec: 'npm test && npm run build && npm run debug',
+    exec: 'npm run build && npm run debug',
     watch: [
-      'server/src/**/*.js',
-      'server/views/**/*.hbs'
+      'server/src/**/*.js'
     ],
     env: {
       NODE_ENV: 'development'

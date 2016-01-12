@@ -43,7 +43,7 @@ const fromGravatar = (email, key) => {
     let hash = md5(email.toLowerCase());
     let uri = `http://www.gravatar.com/${hash}.json`;
     ajax.get(uri).end((err, res) => {
-      console.log(err, res);
+      // console.log(err, res);
       if (err) {
         resolve('');
       } else {

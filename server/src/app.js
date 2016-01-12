@@ -91,7 +91,6 @@ app.set('config', appConfig);
 
 
 
-
 /*  Server I/O  ------------------------------------------------------------  */
 {
 
@@ -118,9 +117,9 @@ app.set('config', appConfig);
 
 
 
-
 /* Router setup  -----------------------------------------------------------  */
 {
+
 
 
 
@@ -132,7 +131,6 @@ app.set('config', appConfig);
     pretty: true,
     graphiql: true
   })));
-
 
   // Static paths
   app.use(express.static(staticPath));
@@ -154,8 +152,6 @@ app.set('config', appConfig);
 
 
 
-
-
 /* Error handlers  ---------------------------------------------------------  */
 {
   // Not to be confused with exception handling, these errors are for
@@ -167,6 +163,7 @@ app.set('config', appConfig);
     err.status = 404;
     next(err);
   });
+
 
 
   // development error handler
@@ -182,6 +179,12 @@ app.set('config', appConfig);
   }
 
 
+
+
+
+
+
+
   // production error handler
   // no stack-traces leaked to user
   app.use(function (err, req, res) {
@@ -193,5 +196,7 @@ app.set('config', appConfig);
   });
 
 }
+
+
 
 module.exports = app;
