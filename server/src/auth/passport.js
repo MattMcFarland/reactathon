@@ -9,7 +9,8 @@ import {
   GitHubStrategy,
   GoogleStrategy,
   OpenIDStrategy,
-  RedditStrategy
+  RedditStrategy,
+  config
 } from './modules';
 
 import {
@@ -35,8 +36,8 @@ passport.deserializeUser(function (user, done) {
 
 /* Facebook */ {
   passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_ID,
-    clientSecret: process.env.FACEBOOK_SECRET,
+    clientID: config.FACEBOOK_ID,
+    clientSecret: config.FACEBOOK_SECRET,
     callbackURL: '/auth/facebook/callback',
     profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
     passReqToCallback: true
@@ -80,8 +81,8 @@ passport.deserializeUser(function (user, done) {
 
 /* Reddit */ {
   passport.use(new RedditStrategy({
-    clientID: process.env.REDDIT_ID,
-    clientSecret: process.env.REDDIT_SECRET,
+    clientID: config.REDDIT_ID,
+    clientSecret: config.REDDIT_SECRET,
     callbackURL: '/auth/reddit/callback',
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
@@ -122,10 +123,11 @@ passport.deserializeUser(function (user, done) {
   }));
 }
 
+
 /* Github */ {
   passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_ID,
-    clientSecret: process.env.GITHUB_SECRET,
+    clientID: config.GITHUB_ID,
+    clientSecret: config.GITHUB_SECRET,
     callbackURL: '/auth/github/callback',
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
@@ -170,8 +172,8 @@ passport.deserializeUser(function (user, done) {
 
 /* Twitter */ {
   passport.use(new TwitterStrategy({
-    consumerKey: process.env.TWITTER_KEY,
-    consumerSecret: process.env.TWITTER_SECRET,
+    consumerKey: config.TWITTER_KEY,
+    consumerSecret: config.TWITTER_SECRET,
     callbackURL: '/auth/twitter/callback',
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
@@ -207,8 +209,8 @@ passport.deserializeUser(function (user, done) {
 
 /* Google */ {
   passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_ID,
-    clientSecret: process.env.GOOGLE_SECRET,
+    clientID: config.GOOGLE_ID,
+    clientSecret: config.GOOGLE_SECRET,
     callbackURL: '/auth/google/callback',
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
@@ -251,7 +253,7 @@ passport.deserializeUser(function (user, done) {
 
 /* Steam */ {
   passport.use(new OpenIDStrategy({
-    apiKey: process.env.STEAM_KEY,
+    apiKey: config.STEAM_KEY,
     providerURL: 'http://steamcommunity.com/openid',
     returnURL: 'http://localhost:3000/auth/steam/callback',
     realm: 'http://localhost:3000/',
@@ -260,7 +262,7 @@ passport.deserializeUser(function (user, done) {
     var steamId = identifier.match(/\d+$/)[0];
     var profileURL =
       'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' +
-      process.env.STEAM_KEY + '&steamids=' + steamId;
+      config.STEAM_KEY + '&steamids=' + steamId;
 
     User.findOne({ steam: steamId }, (err, existingUser) => {
       if (existingUser) {

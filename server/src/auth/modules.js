@@ -1,3 +1,4 @@
+const env = process.env.NODE_ENV || 'development';
 export const _ = require('lodash');
 export const request = require('request');
 export const passport = require('passport');
@@ -13,3 +14,5 @@ export const OpenIDStrategy = require('passport-openid').Strategy;
 export const OAuthStrategy = require('passport-oauth').OAuthStrategy;
 export const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 export const RedditStrategy = require('passport-reddit').Strategy;
+export const config = require('../app.config.js').auth[env];
+

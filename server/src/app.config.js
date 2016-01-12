@@ -52,5 +52,46 @@ module.exports = {
         cert: './ssl/localhost.cert'
       }
     }
+  },
+  auth: {
+    development: {
+      FACEBOOK_ID: process.env.FACEBOOK_ID,
+      FACEBOOK_SECRET: process.env.FACEBOOK_SECRET,
+      REDDIT_ID: process.env.REDDIT_ID,
+      REDDIT_SECRET: process.env.REDDIT_SECRET,
+      GITHUB_ID: process.env.GITHUB_ID,
+      GITHUB_SECRET: process.env.GITHUB_SECRET,
+      TWITTER_KEY: process.env.TWITTER_KEY,
+      TWITTER_SECRET: process.env.TWITTER_SECRET,
+      GOOGLE_ID: process.env.GOOGLE_ID,
+      GOOGLE_SECRET: process.env.GOOGLE_SECRET,
+      STEAM_KEY: process.env.STEAM_KEY
+    },
+    test: {
+      FACEBOOK_ID: process.env.FACEBOOK_ID,
+      FACEBOOK_SECRET: process.env.FACEBOOK_SECRET,
+      REDDIT_ID: process.env.REDDIT_ID,
+      REDDIT_SECRET: process.env.REDDIT_SECRET,
+      GITHUB_ID: process.env.GITHUB_ID,
+      GITHUB_SECRET: process.env.GITHUB_SECRET,
+      TWITTER_KEY: process.env.TWITTER_KEY,
+      TWITTER_SECRET: process.env.TWITTER_SECRET,
+      GOOGLE_ID: process.env.GOOGLE_ID,
+      GOOGLE_SECRET: process.env.GOOGLE_SECRET,
+      STEAM_KEY: process.env.STEAM_KEY
+    },
+    production: {
+      FACEBOOK_ID: process.env.FACEBOOK_ID,
+      FACEBOOK_SECRET: process.env.FACEBOOK_SECRET,
+      REDDIT_ID: process.env.REDDIT_ID,
+      REDDIT_SECRET: process.env.REDDIT_SECRET,
+      GITHUB_ID: process.env.GITHUB_ID,
+      GITHUB_SECRET: process.env.GITHUB_SECRET,
+      TWITTER_KEY: process.env.TWITTER_KEY,
+      TWITTER_SECRET: process.env.TWITTER_SECRET,
+      GOOGLE_ID: process.env.GOOGLE_ID,
+      GOOGLE_SECRET: process.env.GOOGLE_SECRET,
+      STEAM_KEY: process.env.STEAM_KEY
+    }
   }
 };
