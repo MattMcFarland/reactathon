@@ -15,6 +15,7 @@ import { AppStore } from './stores/AppStore';
 import NotificationSystem from 'react-notification-system';
 
 
+
 export class Layout extends React.Component {
 
   constructor() {
@@ -121,6 +122,8 @@ export class Layout extends React.Component {
         <section className="container">
           {this.props.children}
         </section>
+
+
 
         {showSignupModal ?
           <Modal
