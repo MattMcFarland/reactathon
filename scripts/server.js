@@ -10,17 +10,22 @@ import {
 
 import browserSync from 'browser-sync';
 
+
 process.env.PATH += ':./node_modules/.bin';
 
-var cmd = resolvePath(__dirname);
-var srcDir = cmd;
+const cmd = resolvePath(__dirname);
+const srcDir = cmd;
+
+const appConfig = require(resolvePath(srcDir, 'lib/app.config'));
+
+let {host, port} = appConfig.server.development;
+let proxy = host + ':' + port;
 
 var flowServer = spawn(flowBinPath, ['server'], {
   cmd: cmd,
   env: process.env
 });
 var bs = browserSync.create('Dev Server');
-
 
 function exec(command, options) {
   return new Promise(function (resolve, reject) {
@@ -55,10 +60,19 @@ process.on('SIGINT', function () {
   bs.exit();
   flowServer.kill();
   server.kill();
-  console.log(CLEARLINE + yellow(invert('dev server killed')));
   watcher.close();
+  console.log(CLEARLINE + yellow(invert('dev server killed')));
   process.exit();
 });
+
+process.on('uncaughtException', (err) => {
+  console.log(`Caught exception: ${err}`);
+  bs.exit();
+  flowServer.kill();
+  server.kill();
+  watcher.close();
+});
+
 
 
 function startWatch() {
@@ -70,15 +84,12 @@ function startWatch() {
     }
     process.stdout.write(
       CLEARSCREEN + yellow(data) + '\n' +
-      green(invert('Devserver online...\n')
+      green(invert('Watching...\n')
       )
     );
-
-    bs.init({
-      proxy: 'http://localhost:3030'
-    });
-
+    bs.init({ proxy });
   });
+
 }
 
 
@@ -137,42 +148,39 @@ function checkFiles(filepaths) {
         .then(typecheckSuccess =>
         testSuccess && lintSuccess && typecheckSuccess)))
     .catch(() => false)
-    .then(success => {
-      if (!success) {
-        bs.notify('server failed to rebuild...');
-      }
-      var filepath = filepaths[0];
-      if (filepath.indexOf('client') > -1) {
+    .then(() => {
 
-        exec('gulp', ['bundle']).then(() => {
+      var filepath = filepaths[0];
+      if (filepath.indexOf('client') > -1 && !isScss(filepath)) {
+
+        exec('gulp', ['bundle-dev']).then(() => {
           console.log(
             '\n' + cyan(CLEARSCREEN, CLEARLINE, invert('Dev Server online...'))
           );
           setTimeout(bs.reload(), 50);
         });
 
+
+      } else if (isScss(filepath)) {
+        exec('gulp', ['sass']).then(() => {
+          bs.reload()
+        })
       } else if (filepath.indexOf('server') > -1) {
         server.kill('SIGINT');
         bs.exit();
-        exec('npm', ['run', 'test']).then(() => {
-          exec('npm', ['run', 'build']).then(() => {
+        exec('npm', ['run', 'build']).then(() => {
+          setTimeout(function () {
+            server = spawn('node', ['--harmony', 'lib/bin/server.js'], {
+              cmd: cmd,
+              env: process.env,
+              stdio: 'inherit'
+            });
+            console.log(CLEARSCREEN, CLEARLINE);
             setTimeout(function () {
-              server = spawn('node', ['--harmony', 'lib/bin/server.js'], {
-                cmd: cmd,
-                env: process.env,
-                stdio: 'inherit'
-              });
-              console.log(
-                '\n' + cyan(CLEARSCREEN, CLEARLINE, invert('Dev Server online...'))
-              );
-              setTimeout(function () {
-                bs.init({
-                  proxy: 'http://localhost:3030'
-                });
-              }, 2000)
+              bs.init({ proxy });
+            }, 2000)
 
-            }, 100)
-          })
+          }, 100)
         }).catch((err => console.log(red(err, 'watching for changes...'))))
       }
     });
@@ -197,7 +205,6 @@ function parseFiles(filepaths) {
 function runTests(filepaths) {
   logTask('Running Tests');
   bs.notify('rebuild: running tests');
-
   return exec('mocha', [
     '--reporter', 'nyan',
     '--require', 'scripts/mocha-bootload'
@@ -212,7 +219,7 @@ function lintFiles(filepaths) {
 
   return filepaths.reduce((prev, filepath) => prev.then(prevSuccess => {
     process.stdout.write('  ' + filepath + ' ...');
-    if (filepath.indexOf('scss') > -1) {
+    if (isScss(filepath)) {
       return;
     }
     return exec('eslint', [
@@ -245,6 +252,11 @@ function srcPath(filepath) {
 function isJS(filepath) {
   return filepath.indexOf('.js') === filepath.length - 3;
 }
+
+function isScss(filepath) {
+  return filepath.indexOf('.scss') === filepath.length - 5;
+}
+
 
 function allTests(filepaths) {
   return filepaths.length > 0 && filepaths.every(isTest);

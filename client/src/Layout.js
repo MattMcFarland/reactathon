@@ -117,8 +117,6 @@ export class Layout extends React.Component {
           {this.props.children}
         </section>
 
-
-
         {showSignupModal ?
           <Modal
             show={showSignupModal}
