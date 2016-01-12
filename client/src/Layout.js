@@ -35,7 +35,7 @@ export class Layout extends React.Component {
   addNotification = (queue) => {
     let message = queue.slice(0, 1);
     this._notificationSystem.addNotification(message[0]);
-  }
+  };
   onChange(state) {
     if (state.queue && state.queue.length) {
       setTimeout(this.addNotification(state.queue), 100);
@@ -73,8 +73,12 @@ export class Layout extends React.Component {
     } else {
       Menu = ({}) => (
         <Nav pullRight style={{marginTop: '5px'}}>
-          <Button bsStyle='link' onClick={onShowSignupForm}>Signup</Button>
-          <Button bsStyle='link' onClick={onShowLoginForm}>Login</Button>
+          <Button bsStyle='link' onClick={onShowSignupForm}>
+            Create Account
+          </Button>
+          <Button bsStyle='link' onClick={onShowLoginForm}>
+            Login
+          </Button>
         </Nav>
       );
     }

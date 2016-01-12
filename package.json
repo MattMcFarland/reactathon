@@ -118,6 +118,11 @@
     "url": "git+https://github.com/MattMcFarland/reactathon.git"
   },
   "author": "Matt McFarland",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MattMcFarland/reactathon/issues"

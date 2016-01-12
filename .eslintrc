@@ -163,7 +163,7 @@
       {
         "vars": "all",
         "args": "after-used",
-        "varsIgnorePattern": "React"
+        "varsIgnorePattern": "React|Relay"
       }
     ],
     "no-use-before-define": 0,

@@ -8,9 +8,9 @@ import { render } from 'react-dom';
  *  React-Router
  */
 import {
+  browserHistory,
   IndexRoute,
-  Route,
-  browserHistory
+  Route
 } from 'react-router';
 
 /*
@@ -31,12 +31,13 @@ import { Layout } from './Layout';
  */
 
 import {
-  Home,
   Article,
   ArticleList,
+  Home,
+  NoMatch,
   Page,
-  TagList,
-  NoMatch
+  Tag,
+  TagList
 } from './containers';
 
 /*

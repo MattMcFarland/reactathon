@@ -30,12 +30,13 @@ export class LoginForm extends React.Component {
   onChange(state) {
     this.setState(state);
   }
+
   clearState = () => {
     this.setState({
       username: '',
       password: ''
     });
-  }
+  };
 
   handleUsernameChange = (e => this.onChange(
       {username: e.target.value})
@@ -83,7 +84,7 @@ export class LoginForm extends React.Component {
         valid: true
       };
     }
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -110,7 +111,7 @@ export class LoginForm extends React.Component {
       password: this.state.password
     });
 
-  }
+  };
 
   render() {
     // handlers

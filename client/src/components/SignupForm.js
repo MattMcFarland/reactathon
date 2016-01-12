@@ -38,7 +38,7 @@ export class SignupForm extends React.Component {
       password: '',
       email: ''
     });
-  }
+  };
 
   handleUsernameChange = (e => this.onChange(
       {username: e.target.value})
@@ -94,7 +94,7 @@ export class SignupForm extends React.Component {
         valid: true
       };
     }
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -122,7 +122,7 @@ export class SignupForm extends React.Component {
       email: this.state.email
     });
 
-  }
+  };
 
   render() {
     // handlers
