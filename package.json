@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Hackathon starter kit with react, react-router, relay, and more.",
   "scripts": {
-    "postinstall": "npm run build",
+    "postinstall": "npm run build && gulp bundle && gulp bundle-vendor",
     "test": "npm run lint && npm run check && mocha $npm_package_options_mocha",
     "lint": "npm run lint:server ; npm run lint:client",
     "lint:server": "eslint server/src",
