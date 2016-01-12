@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="banner.png"/>
-  React.js :wavy_dash: Relay.js :wavy_dash: GraphQL :wavy_dash: Sequelize :wavy_dash: Express.js :wavy_dash: Passport.js :wavy_dash:
+  :wavy_dash: React.js :wavy_dash: Relay.js :wavy_dash: GraphQL :wavy_dash: Sequelize :wavy_dash: Express.js :wavy_dash: Passport.js :wavy_dash:
 </p>
 
 > Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
