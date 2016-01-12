@@ -1,12 +1,8 @@
 ###  Rapidly deploy a react-app with bells and whistles.
-```
-    ___               __               __  __           
-   / _ \___ ___ _____/ /________ _____/ /_/ /  ___  ___ 
-  / , _/ -_) _ `/ __/ __/___/ _ `/___/ __/ _ \/ _ \/ _ \
- /_/|_|\__/\_,_/\__/\__/    \_,_/    \__/_//_/\___/_//_/
 
- https://github.com/MattMcFarland/reactathon
-```
+<p align="center">
+  <img src="banner.png"/>
+</p>
 
 > Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
 by [Sahat Yalkabov](https://github.com/sahat)
