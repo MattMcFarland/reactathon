@@ -2,12 +2,13 @@
 
 <p align="center">
   <img src="banner.png"/>
+  React.js :wavy_dash: Relay.js :wavy_dash: GraphQL :wavy_dash: Sequelize :wavy_dash: Express
 </p>
 
 > Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
 by [Sahat Yalkabov](https://github.com/sahat)
 
-* React.js * Relay.js * GraphQL * Sequelize * Express *
+
 
 ### Under active development
 
