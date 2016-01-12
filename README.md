@@ -5,7 +5,9 @@ by [Sahat Yalkabov](https://github.com/sahat)
 
 <p align="center">
   <img src="banner.png"/>
-  :wavy_dash: React.js :wavy_dash: Relay.js :wavy_dash: GraphQL :wavy_dash: Sequelize :wavy_dash: Express.js :wavy_dash: Passport.js :wavy_dash:
+  :wavy_dash: React.js :wavy_dash: Relay.js :wavy_dash: React-Router :wavy_dash: React-Bootstrap :wavy_dash:
+  :wavy_dash: GraphQL :wavy_dash: Sequelize (SQL) :wavy_dash: Express.js :wavy_dash: Passport.js :wavy_dash: Babel.js :wavy_dash: Winston :wavy_dash:
+  :wavy_dash: PM2 :wavy_dash: Microsoft Azure :wavy_dash: Heroku :wavy_dash:
 </p>
 
 
