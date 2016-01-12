@@ -12,7 +12,7 @@
     "build": "rm -rf lib/* && babel server/src --ignore __tests__ --out-dir lib && npm run copy",
     "copy": "npm run copy:config ; npm run copy:views ; npm run copy:static",
     "copy:views": "cp -R server/src/views lib/views",
-    "copy:config": "cp app.config.js lib",
+    "copy:config": "cp server/src/app.config.js lib",
     "copy:static": "cp -R client/public lib/public",
     "watch:tests": "babel tasks/watch.js | node",
     "cover": "babel-node node_modules/.bin/isparta cover --root src --report html node_modules/.bin/_mocha -- $npm_package_options_mocha",

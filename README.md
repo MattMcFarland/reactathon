@@ -17,6 +17,10 @@ using React, Relay, React-Router, Express, and much more!
 __Warning__:  Some of this boilerplate includes *experimental* technology,
 so use at your own risk.
 
+### Rapid configuration
+
+Edit `server/src/app.config.js` to setup everything.
+
 ### Tested System Requirements
 - Mac OSX or Linux
 - Node.js v5.3.0

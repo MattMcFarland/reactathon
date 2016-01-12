@@ -470,10 +470,10 @@ var {connectionType: voteConnection} =
   connectionDefinitions({nodeType: voteType});
 
 
-var CodePixAPI = new GraphQLObjectType({
-  name: 'CodePixAPI',
+var GraphAPI = new GraphQLObjectType({
+  name: 'GraphAPI',
   fields: () => ({
-    id: globalIdField('CodePixAPI'),
+    id: globalIdField('GraphAPI'),
     users: {
       description: 'Sitewide users',
       type: userConnection,
@@ -525,7 +525,7 @@ var Root = new GraphQLObjectType({
   name: 'Root',
   fields: {
     store: {
-      type: CodePixAPI,
+      type: GraphAPI,
       resolve: () => 'API'
     },
     node: nodeField

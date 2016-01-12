@@ -11,8 +11,8 @@ gulp.task('watch-server', () => {
     verbose: false,
     exec: 'npm test && npm run build && npm run debug',
     watch: [
-      'src/**/*.js',
-      'views/**/*.hbs'
+      'server/src/**/*.js',
+      'server/views/**/*.hbs'
     ],
     env: {
       NODE_ENV: 'development'
@@ -28,9 +28,7 @@ gulp.task('watch-client', ['nodemon'], () => {
     reloadDebounced: 50,
     online: false,
     files: [
-      'node_modules/codepix-client/lib/public/js/main.min.js',
-      'node_modules/codepix-client/lib/public/js/vendor/vendor.min.js',
-      'node_modules/codepix-client/lib/public/style/main.css'
+      'lib/public/**/*'
     ],
     browser: 'google chrome',
     port: 7000

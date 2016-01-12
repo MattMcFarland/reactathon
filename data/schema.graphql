@@ -1,0 +1,166 @@
+type Article implements Node {
+  id: ID!
+  dateCreated: String
+  dateModified: String
+  title: String
+  description: String
+  content: String
+  shareUrl: String
+  imageUrl: String
+  size: Int
+  width: Int
+  height: Int
+  visibility: String
+  score: Int
+  downVoteCount: Int
+  upVoteCount: Int
+  author: User
+  editor: User
+  shasum: String
+}
+
+type ArticleConnection {
+  pageInfo: PageInfo!
+  edges: [ArticleEdge]
+}
+
+type ArticleEdge {
+  node: Article
+  cursor: String!
+}
+
+type Comment implements Node {
+  id: ID!
+  author: User
+  editor: User
+  dateCreated: String
+  dateModified: String
+  url: String
+  content: String
+  commentable: String
+  article: Article
+  votes(after: String, first: Int, before: String, last: Int): VoteConnection
+  flags(after: String, first: Int, before: String, last: Int): FlagConnection
+  score: Int
+  downVoteCount: Int
+  upVoteCount: Int
+}
+
+type CommentConnection {
+  pageInfo: PageInfo!
+  edges: [CommentEdge]
+}
+
+type CommentEdge {
+  node: Comment
+  cursor: String!
+}
+
+type Flag implements Node {
+  id: ID!
+  flagger: User
+  flaggable: String
+  article: Article
+  comment: Comment
+  name: String
+}
+
+type FlagConnection {
+  pageInfo: PageInfo!
+  edges: [FlagEdge]
+}
+
+type FlagEdge {
+  node: Flag
+  cursor: String!
+}
+
+type GraphAPI {
+  id: ID!
+  users(after: String, first: Int, before: String, last: Int): UserConnection
+  comments(after: String, first: Int, before: String, last: Int): CommentConnection
+  tags(after: String, first: Int, before: String, last: Int): TagConnection
+  votes(after: String, first: Int, before: String, last: Int): VoteConnection
+  flags(after: String, first: Int, before: String, last: Int): FlagConnection
+  articles(after: String, first: Int, before: String, last: Int): ArticleConnection
+  node(id: ID!): Node
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Root {
+  store: GraphAPI
+  node(id: ID!): Node
+}
+
+type Tag implements Node {
+  id: ID!
+  dateCreated: String
+  dateModified: String
+  lastUsedDate: String
+  useCount: Int
+  taggable: String
+  similarTags(after: String, first: Int, before: String, last: Int): TagConnection
+  articles(after: String, first: Int, before: String, last: Int): ArticleConnection
+  name: String
+}
+
+type TagConnection {
+  pageInfo: PageInfo!
+  edges: [TagEdge]
+}
+
+type TagEdge {
+  node: Tag
+  cursor: String!
+}
+
+type User implements Node {
+  id: ID!
+  displayName: String
+  username: String
+  email: String
+  avatar: String
+  authoredArticles(after: String, first: Int, before: String, last: Int): ArticleConnection
+  authoredComments(after: String, first: Int, before: String, last: Int): CommentConnection
+  votes(after: String, first: Int, before: String, last: Int): VoteConnection
+  flags(after: String, first: Int, before: String, last: Int): FlagConnection
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]
+}
+
+type UserEdge {
+  node: User
+  cursor: String!
+}
+
+type Vote implements Node {
+  id: ID!
+  voter: User
+  votable: String
+  article: Article
+  comment: Comment
+  direction: String
+}
+
+type VoteConnection {
+  pageInfo: PageInfo!
+  edges: [VoteEdge]
+}
+
+type VoteEdge {
+  node: Vote
+  cursor: String!
+}

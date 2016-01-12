@@ -11,6 +11,7 @@ rootRoute.get('*', function (req, res) {
   res.render('root', {
     title: appConfig.www.title,
     description: appConfig.www.description,
+    google_analytics: appConfig.www.google_analytics,
     url: req.url,
     user: req.user ? JSON.stringify(req.user) : ''
   });

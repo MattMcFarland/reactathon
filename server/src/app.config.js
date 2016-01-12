@@ -1,7 +1,8 @@
 module.exports = {
   www: {
     title: 'Reactathon',
-    description: 'Starter kit'
+    description: 'Starter kit',
+    google_analytics: 'UA-XXXXXXXX-X'
   },
   sequelize: {
     development: {
@@ -23,24 +24,30 @@ module.exports = {
   server: {
     development: {
       port: process.env.PORT || 3030,
+      host: 'http://localhost',
       ssl: {
         port: 8443,
+        host: 'https://localhost',
         key: './ssl/localhost.key',
         cert: './ssl/localhost.cert'
       }
     },
     test: {
       port: process.env.PORT || 3030,
+      host: 'http://localhost',
       ssl: {
         port: 8443,
+        host: 'https://localhost',
         key: './ssl/localhost.key',
         cert: './ssl/localhost.cert'
       }
     },
     production: {
       port: process.env.PORT || 8080,
+      host: 'http://localhost',
       ssl: {
         port: 443,
+        host: 'https://localhost',
         key: './ssl/localhost.key',
         cert: './ssl/localhost.cert'
       }

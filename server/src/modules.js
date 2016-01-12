@@ -1,3 +1,4 @@
+export const fs = require('fs');
 export const express = require('express');
 export const path = require('path');
 export const favicon = require('serve-favicon');
@@ -15,4 +16,4 @@ export const FileStore = require('session-file-store')(session);
 export const sessionInfo = require('session-passport-info');
 export const schema = require('./schema').default;
 export const graph = require('express-graphql');
-export const appConfig = require('./app.config');
+export const appConfig = require('../app.config');
