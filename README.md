@@ -1,4 +1,6 @@
-###  For the rapid deployment of a React/Relay/Router/Node/Authentication/More Web application
+###  Deployment ready boilerplate using React, Relay, React-Router, Express and Passport.
+
+This repo is designed to work out of the box so you can kickstart your next project.
 
 > Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
 by [Sahat Yalkabov](https://github.com/sahat)
