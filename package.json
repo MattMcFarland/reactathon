@@ -97,6 +97,7 @@
     "passport-oauth": "^1.0.0",
     "passport-oauth2": "^1.1.2",
     "passport-openid": "^0.4.0",
+    "passport-reddit": "^0.2.4",
     "passport-twitter": "^1.0.3",
     "phantom": "^0.8.4",
     "pretty-error": "^2.0.0",

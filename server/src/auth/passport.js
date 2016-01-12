@@ -4,15 +4,12 @@ import {
   request,
   LocalStrategy,
   crypto,
-  InstagramStrategy,
   FacebookStrategy,
   TwitterStrategy,
   GitHubStrategy,
   GoogleStrategy,
-  LinkedInStrategy,
   OpenIDStrategy,
-  OAuthStrategy,
-  OAuth2Strategy
+  RedditStrategy
 } from './modules';
 
 import {
@@ -36,38 +33,6 @@ passport.deserializeUser(function (user, done) {
 });
 
 
-/* Instagram */ {
-  passport.use(new InstagramStrategy({
-    clientID: process.env.INSTAGRAM_ID,
-    clientSecret: process.env.INSTAGRAM_SECRET,
-    callbackURL: '/auth/instagram/callback',
-    passReqToCallback: true
-  }), (req, accessToken, refreshToken, profile, done) => {
-    if (req.user) {
-      User.findOne(
-        {where: {instagram: profile.id}}).then(user => {
-        user.instagram = profile.id;
-        user.createToken({kind: 'instagram', accessToken});
-        user.save().then(done);
-      });
-    } else {
-      User.findOne(
-        {where: {instagram: profile.id}}).then(existingUser => {
-        if (existingUser) {
-          return done(null, existingUser);
-        }
-        User.create({
-          instagram: profile.id,
-          email: profile.username + '@instagram.com'
-        }).then(newUser => {
-          newUser.createToken({kind: 'instagram', accessToken});
-          done();
-        });
-      });
-    }
-  });
-}
-
 /* Facebook */ {
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_ID,
@@ -75,7 +40,7 @@ passport.deserializeUser(function (user, done) {
     callbackURL: '/auth/facebook/callback',
     profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
     passReqToCallback: true
-  }), (req, accessToken, refreshToken, profile, done) => {
+  }, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
       User.findOne(
         {where: {facebook: profile.id}}).then(alreadyExists => {
@@ -110,7 +75,51 @@ passport.deserializeUser(function (user, done) {
         });
       });
     }
-  });
+  }));
+}
+
+/* Reddit */ {
+  passport.use(new RedditStrategy({
+    clientID: process.env.REDDIT_ID,
+    clientSecret: process.env.REDDIT_SECRET,
+    callbackURL: '/auth/reddit/callback',
+    passReqToCallback: true
+  }, function (req, accessToken, refreshToken, profile, done) {
+    if (req.user) {
+      User.findOne(
+        {where: {reddit: profile.id}}).then(alreadyExists => {
+        if (alreadyExists) {
+          return done();
+        }
+        User.findOne({ where: {id: req.user.id} }).then(user => {
+          user.reddit = profile.id;
+          user.createToken({kind: 'reddit', accessToken});
+          user.save().then(done);
+        });
+      });
+    } else {
+      User.findOne(
+        {where: {reddit: profile.id}}).then(existingUser => {
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+        User.findOne({
+          where: { email: profile._json.email }}).then(emailExists => {
+          if (emailExists) {
+            // There is already a user that has this email in the db.
+            return done();
+          }
+          User.create({
+            reddit: profile.id,
+            email: profile._json.email
+          }).then(newUser => {
+            newUser.createToken({kind: 'reddit', accessToken});
+            done();
+          });
+        });
+      });
+    }
+  }));
 }
 
 /* Github */ {
@@ -119,7 +128,7 @@ passport.deserializeUser(function (user, done) {
     clientSecret: process.env.GITHUB_SECRET,
     callbackURL: '/auth/github/callback',
     passReqToCallback: true
-  }), (req, accessToken, refreshToken, profile, done) => {
+  }, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
       User.findOne(
         {where: {github: profile.id}}).then(alreadyExists => {
@@ -155,7 +164,7 @@ passport.deserializeUser(function (user, done) {
         });
       });
     }
-  });
+  }));
 
 }
 
@@ -165,7 +174,7 @@ passport.deserializeUser(function (user, done) {
     consumerSecret: process.env.TWITTER_SECRET,
     callbackURL: '/auth/twitter/callback',
     passReqToCallback: true
-  }), (req, accessToken, refreshToken, profile, done) => {
+  }, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
       User.findOne(
         {where: {twitter: profile.id}}).then(alreadyExists => {
@@ -193,7 +202,7 @@ passport.deserializeUser(function (user, done) {
         });
       });
     }
-  });
+  }));
 }
 
 /* Google */ {
@@ -202,7 +211,7 @@ passport.deserializeUser(function (user, done) {
     clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: '/auth/google/callback',
     passReqToCallback: true
-  }), (req, accessToken, refreshToken, profile, done) => {
+  }, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
       User.findOne(
         {where: {google: profile.id}}).then(alreadyExists => {
@@ -237,99 +246,7 @@ passport.deserializeUser(function (user, done) {
         });
       });
     }
-  });
-}
-
-/* LinkedIn */ {
-  passport.use(new LinkedInStrategy({
-    clientID: process.env.LINKEDIN_ID,
-    clientSecret: process.env.LINKEDIN_SECRET,
-    callbackURL: process.env.LINKEDIN_CALLBACK_URL,
-    scope: ['r_basicprofile', 'r_emailaddress'],
-    passReqToCallback: true
-  }), (req, accessToken, refreshToken, profile, done) => {
-    if (req.user) {
-      User.findOne(
-        {where: {linkedin: profile.id}}).then(alreadyExists => {
-        if (alreadyExists) {
-          return done();
-        }
-        User.findOne({ where: {id: req.user.id} }).then(user => {
-          user.linkedin = profile.id;
-          user.createToken({kind: 'linkedin', accessToken});
-          user.save().then(done);
-        });
-      });
-    } else {
-      User.findOne(
-        {where: {linkedin: profile.id}}).then(existingUser => {
-        if (existingUser) {
-          return done(null, existingUser);
-        }
-        User.findOne({
-          where: { email: profile._json.emailAddress }}).then(emailExists => {
-          if (emailExists) {
-            // There is already a user that has this email in the db.
-            return done();
-          }
-          User.create({
-            linkedin: profile.id,
-            email: profile._json.emailAddress
-          }).then(newUser => {
-            newUser.createToken({kind: 'linkedin', accessToken});
-            done();
-          });
-        });
-      });
-    }
-  });
-}
-
-/* Tumblr */ {
-  passport.use('tumblr', new OAuthStrategy({
-      requestTokenURL: 'http://www.tumblr.com/oauth/request_token',
-      accessTokenURL: 'http://www.tumblr.com/oauth/access_token',
-      userAuthorizationURL: 'http://www.tumblr.com/oauth/authorize',
-      consumerKey: process.env.TUMBLR_KEY,
-      consumerSecret: process.env.TUMBLR_SECRET,
-      callbackURL: '/auth/tumblr/callback',
-      passReqToCallback: true
-    },
-    (req, token, tokenSecret, profile, done) => {
-      User.findOne({ where: {id: req.user.id} }).then(user => {
-        user.createToken({
-          kind: 'tumblr',
-          accesstoken: token,
-          tokenSecret
-        }).then(() => {
-          user.save().then(done);
-        });
-      });
-    }
-  ));
-}
-
-/* Venmo */ {
-  passport.use('venmo', new OAuth2Strategy({
-      authorizationURL: 'https://api.venmo.com/v1/oauth/authorize',
-      tokenURL: 'https://api.venmo.com/v1/oauth/access_token',
-      clientID: process.env.VENMO_ID,
-      clientSecret: process.env.VENMO_SECRET,
-      callbackURL: process.env.VENMO_REDIRECT_URL,
-      passReqToCallback: true
-    },
-    (req, accessToken, tokenSecret, profile, done) => {
-      User.findOne({ where: {id: req.user.id} }).then(user => {
-        user.createToken({
-          kind: 'venmo',
-          accessToken
-        }).then(() => {
-          user.save().then(done);
-        });
-      });
-    }
-  ));
-
+  }));
 }
 
 /* Steam */ {
@@ -339,7 +256,7 @@ passport.deserializeUser(function (user, done) {
     returnURL: 'http://localhost:3000/auth/steam/callback',
     realm: 'http://localhost:3000/',
     stateless: true
-  }, (identifier, done) => {
+  }, function (identifier, done) {
     var steamId = identifier.match(/\d+$/)[0];
     var profileURL =
       'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' +
