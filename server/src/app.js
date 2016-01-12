@@ -139,6 +139,7 @@ app.set('config', appConfig);
   app.use('/js', express.static(jsPath));
   app.use('/style', express.static(stylePath));
 
+
   // api endpoint
   app.use('/api', api);
 

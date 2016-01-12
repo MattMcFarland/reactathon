@@ -212,6 +212,9 @@ function lintFiles(filepaths) {
 
   return filepaths.reduce((prev, filepath) => prev.then(prevSuccess => {
     process.stdout.write('  ' + filepath + ' ...');
+    if (filepath.indexOf('scss') > -1) {
+      return;
+    }
     return exec('eslint', [
       srcPath(filepath)])
       .catch(() => false)

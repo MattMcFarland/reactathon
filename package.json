@@ -13,7 +13,7 @@
     "copy": "npm run copy:config ; npm run copy:views ; npm run copy:static",
     "copy:views": "cp -R server/src/views lib/views",
     "copy:config": "cp server/src/app.config.js lib",
-    "copy:static": "cp -R server/src/public lib/public",
+    "copy:static": "cp -R server/src/public lib/public && cp -R server/src/pages lib/pages",
     "dev": "babel scripts/server.js | node",
     "watch": "babel scripts/watch.js | node",
     "cover": "babel-node node_modules/.bin/isparta cover --root src --report html node_modules/.bin/_mocha -- $npm_package_options_mocha",

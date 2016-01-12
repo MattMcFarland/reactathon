@@ -90,7 +90,7 @@ export class Layout extends React.Component {
 
     return (
       <section>
-        <Navbar>
+        <Navbar inverse>
           <Navbar.Header>
             <Navbar.Brand>
               <Link
@@ -99,21 +99,15 @@ export class Layout extends React.Component {
                 <Logo />
               </Link>
             </Navbar.Brand>
+            <Navbar.Toggle />
           </Navbar.Header>
-          <Navbar.Toggle />
           <Navbar.Collapse>
             <Nav>
               <Navbar.Text>
                 <Link
                   activeClassName='active'
                   className="nav-item nav-link btn btn-link"
-                  to="/make">Make</Link>
-              </Navbar.Text>
-              <Navbar.Text>
-                <Link
-                  activeClassName='active'
-                  className="nav-item nav-link btn btn-link"
-                  to="/list">List</Link>
+                  to="/page/about">About</Link>
               </Navbar.Text>
             </Nav>
             <Menu/>
