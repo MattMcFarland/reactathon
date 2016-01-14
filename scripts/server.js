@@ -209,7 +209,9 @@ function runTests(filepaths) {
     '--reporter', 'nyan',
     '--require', 'scripts/mocha-bootload'
   ].concat(
-    allTests(filepaths) ? filepaths.map(srcPath) : ['server/src/**/__tests__/**/*.js']
+    allTests(filepaths) ?
+      filepaths.map(srcPath) :
+      ['server/src/**/__tests__/**/*.js']
   )).catch(() => false);
 }
 

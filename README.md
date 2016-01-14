@@ -23,15 +23,18 @@ by [Sahat Yalkabov](https://github.com/sahat)
 ```
 ### Under active development
 
-#### Current TODOS:
+#### Current Roadmap:
 
- - [ ] Add oAuth2 passports (partially completed)
- - [ ] Add Example APIS
- - [ ] Add DB Seeder
- - [ ] Add Relay Views
- - [ ] Add Stack Info
- - [ ] User dashboard
- - [ ] Sendgrid email
+Current tasks and TODOS are using the issues board. This is more of a highlevel view of the project.
+The following will be completed for the v1.0.0 release. we will be using SEMVER.
+
+- [ ] Add an optional seeder that seeds the database with dummy data.
+- [ ] Refactor oAuth2 passports for ajax implementation.
+- [ ] Add user profile page, dashboard page, and email support.
+- [ ] Add passport reset and passport forgot workflows.
+- [ ] Add User posts and user follow actions / activities.
+- [ ] Need a working unit test framework for clientside.
+
 
 
 ### A React-App on steroids
