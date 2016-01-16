@@ -1,15 +1,38 @@
 import React from 'react';
 import Relay from 'react-relay';
-import { Col, Row } from 'react-bootstrap';
+import moment from 'moment';
 
-const ProfilePicture = () => (
-  <div>ProfilePicture Here</div>
-);
-const UserLocation = () => (
-  <div>UserLocation Here</div>
-);
-const UserWebsite = () => (
-  <div>UserWebsite Here</div>
+import {
+  Col,
+  Row,
+  // Panel,
+  Button,
+  Input,
+  Thumbnail
+} from 'react-bootstrap';
+
+
+const UserCard = ({
+  displayName,
+  location,
+  pictureUrl,
+  username,
+  website,
+  dateCreated
+}) => (
+  <div>
+    <h3>Hello, {displayName}!</h3>
+    <Thumbnail style={{backgroundColor: 'white' }}src={pictureUrl}>
+      <p>Joined {moment(dateCreated).fromNow()}</p>
+      <p>{username ? username : ''}</p>
+      <p>
+      {location}
+      </p>
+      <p>
+        <a href={website}>{website}</a>
+      </p>
+    </Thumbnail>
+  </div>
 );
 
 
@@ -21,23 +44,38 @@ class DashboardComponent extends React.Component {
   }
 
   render() {
+
+    // TODO: Add oAuth Provider link/unlink feature
+
+    let {
+      website,
+      email,
+      username } = this.props.viewer.user;
+
+
     return (
       <section>
-        <Row>
 
+        <Row>
           <Col xs={12} sm={6} md={5} lg={4}>
-            <ProfilePicture/>
-            <UserLocation/>
-            <UserWebsite/>
+
+            <UserCard {...this.props.viewer.user} />
+
           </Col>
 
           <Col xs={12} sm={6} md={7} lg={8}>
-            <form>
-
+            <form style={{marginTop: '54px'}}>
+              <label>Username</label>
+              <Input type="text" readOnly value={username}/>
+              <label>Email</label>
+              <Input type="email" readOnly value={email}/>
+              <label>Website</label>
+              <Input type="url" readOnly value={website}/>
+              <Button bsStyle="success">Edit Profile</Button>
             </form>
           </Col>
-
         </Row>
+
       </section>
     );
   }
@@ -51,9 +89,14 @@ export const Dashboard = Relay.createContainer(DashboardComponent, {
     viewer: () => Relay.QL`
       fragment on GraphAPI {
         user(id: $id) {
+          displayName,
+          dateCreated,
           username,
-          displayName
-
+          email,
+          location,
+          website,
+          pictureUrl
+          github
         }
       }
     `

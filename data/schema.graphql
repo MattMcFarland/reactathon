@@ -128,6 +128,8 @@ type TagEdge {
 
 type User implements Node {
   id: ID!
+  dateCreated: String
+  dateModified: String
   displayName: String
   username: String
   email: String

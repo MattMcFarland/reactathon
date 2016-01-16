@@ -308,6 +308,14 @@ var userType = new GraphQLObjectType({
   description: 'A user aka author, editor, etc.',
   fields: () => ({
     id: globalIdField(),
+    dateCreated: {
+      type: GraphQLString,
+      resolve: user => user.createdAt
+    },
+    dateModified: {
+      type: GraphQLString,
+      resolve: user => user.updatedAt
+    },
     displayName: {
       type: GraphQLString,
       resolve(user) {
