@@ -31,6 +31,7 @@ module.exports = function (sequelize, DataTypes) {
         User.hasMany(models.Comment, {
           as: 'editedComments' , foreignKey: 'EditorId'
         });
+        User.hasMany(models.Token);
         User.hasMany(models.Vote, {
           foreignKey: 'VoterId'
         });

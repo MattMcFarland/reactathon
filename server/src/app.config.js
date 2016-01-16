@@ -1,3 +1,7 @@
+const path = require('path');
+const envpath = path.join(__dirname, '.env.example');
+require('dotenv').config({path: envpath});
+
 module.exports = {
   www: {
     title: 'Reactathon',

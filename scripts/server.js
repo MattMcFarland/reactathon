@@ -1,6 +1,6 @@
 import sane from 'sane';
 import { resolve as resolvePath } from 'path';
-import { spawn } from 'child_process';
+import { spawn, fork } from 'child_process';
 import flowBinPath from 'flow-bin';
 import figlet from 'figlet';
 import {
@@ -45,15 +45,24 @@ function exec(command, options) {
   });
 }
 
+
+var server = fork('lib/bin/server.js');
+
+server.on('stdout', (m) => {
+  console.log(blue(m));
+})
+
+/*
 var server = spawn('node', ['--harmony', 'lib/bin/server.js'], {
   cmd: cmd,
   env: process.env,
   stdio: 'inherit'
 });
-
+*/
 var watcher = sane(cmd, { glob: ['server/**/*.*', 'client/**/*.*'] })
   .on('ready', startWatch)
   .on('add', changeFile)
+  .on('delete', deleteFile)
   .on('change', changeFile);
 
 process.on('SIGINT', function () {
@@ -73,8 +82,6 @@ process.on('uncaughtException', (err) => {
   watcher.close();
 });
 
-
-
 function startWatch() {
   figlet('Reactathon', function (err, data) {
     if (err) {
@@ -84,7 +91,7 @@ function startWatch() {
     }
     process.stdout.write(
       CLEARSCREEN + yellow(data) + '\n' +
-      green(invert('Watching...\n')
+      green(invert('Watching...')
       )
     );
     bs.init({ proxy });
@@ -98,20 +105,37 @@ var isChecking;
 var needsCheck;
 var toCheck = {};
 var timeout;
-
+var resetServer = false;
+var shouldCopy = false;
+var haltOperation = false;
 
 function changeFile(filepath, root, stat) {
-  bs.notify('file changed', filepath);
+
   if (!stat.isDirectory()) {
     toCheck[filepath] = true;
     debouncedCheck();
   }
 }
 
+// logging
 function logTask(str) {
   console.log('\n', yellow('=========='), str, '\n');
 }
 
+function logError(msg) {
+  haltOperation = true;
+  bs.notify('<p style="padding: 1em; ' +
+    'font-size: 14px; background:maroon; color: white;">' +
+    'Server error encountered :(' +
+    '</p>'
+  );
+  console.log(yellow('\nAn exception has been caught!\n'));
+  console.log(red('\t', msg));
+}
+
+function logWaiting() {
+  console.log('\n', green(invert('Waiting...')));
+}
 
 function deleteFile(filepath) {
   delete toCheck[filepath];
@@ -119,6 +143,7 @@ function deleteFile(filepath) {
 }
 
 function debouncedCheck() {
+  haltOperation = false;
   needsCheck = true;
   clearTimeout(timeout);
   timeout = setTimeout(guardedCheck, 250);
@@ -138,8 +163,8 @@ function guardedCheck() {
   });
 }
 
-
 function checkFiles(filepaths) {
+  bs.notify('Changes detected! please wait...')
   console.log('\u001b[2J');
   return parseFiles(filepaths)
     .then(() => runTests(filepaths))
@@ -147,50 +172,138 @@ function checkFiles(filepaths) {
       .then(lintSuccess => typecheckStatus()
         .then(typecheckSuccess =>
         testSuccess && lintSuccess && typecheckSuccess)))
-    .catch(() => false)
-    .then(() => {
-
-      var filepath = filepaths[0];
-      if (filepath.indexOf('client') > -1 && !isScss(filepath)) {
-
-        exec('gulp', ['bundle-dev']).then(() => {
-          console.log(
-            '\n' + cyan(CLEARSCREEN, CLEARLINE, invert('Dev Server online...'))
-          );
-          setTimeout(bs.reload(), 50);
-        });
-
-
-      } else if (isScss(filepath)) {
-        exec('gulp', ['sass']).then(() => {
-          bs.reload()
-        })
-      } else if (filepath.indexOf('server') > -1) {
-        server.kill('SIGINT');
-        bs.exit();
-        exec('npm', ['run', 'build']).then(() => {
-          setTimeout(function () {
-            server = spawn('node', ['--harmony', 'lib/bin/server.js'], {
-              cmd: cmd,
-              env: process.env,
-              stdio: 'inherit'
-            });
-            console.log(CLEARSCREEN, CLEARLINE);
-            setTimeout(function () {
-              bs.init({ proxy });
-            }, 2000)
-
-          }, 100)
-        }).catch((err => console.log(red(err, 'watching for changes...'))))
-      }
-    });
+    .then(() => buildStyles(filepaths))
+    .then(() => bundleClient(filepaths))
+    .then(() => rebuildServer(filepaths))
+    .then(() => copyFiles())
+    .then(() => respawnServer())
+    .then(() => syncBrowser())
+    .then(() => logWaiting())
+    .catch(err => logError(err));
 }
 
+function syncBrowser() {
+  if (haltOperation) {
+    return Promise.resolve('');
+  }
+
+
+  return new Promise(resolve => {
+    setTimeout(function () {
+      bs.reload();
+      resolve();
+    }, 10)
+  });
+}
+
+function respawnServer() {
+  if (haltOperation) {
+    return Promise.resolve('');
+  }
+  if (resetServer) {
+    logTask('Respawn Server');
+    server.kill('SIGINT');
+    return new Promise((resolve, reject) => {
+      try {
+        server = fork('lib/bin/server.js');
+        server.on('stdout', (o => {
+          console.log(blue(o));
+        }));
+        server.on('message', (m) => {
+          console.log(cyan('\tserver:', m));
+          if (m === 'ready') {
+            resolve();
+          }
+        });
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+}
+
+function copyFiles() {
+  if (haltOperation) {
+    return Promise.resolve('');
+  }
+  if (shouldCopy) {
+    logTask('Copy files');
+    shouldCopy = false;
+    return Promise(exec('npm', ['run', 'copy']));
+  }
+}
+
+function bundleClient(filepaths) {
+  if (haltOperation) {
+    filepaths = []
+  }
+
+  var rebundleClient = false;
+  filepaths.forEach((filepath) => {
+    if (isJS(filepath)
+      && !isTest(filepath)
+      && inClient(filepath)) {
+      rebundleClient = true;
+    }
+  })
+  if (rebundleClient) {
+    logTask('Bundle Client files');
+    return exec('gulp', ['bundle-dev']);
+  }
+}
+
+function buildStyles(filepaths) {
+  if (haltOperation) {
+    filepaths = []
+  }
+
+  var rebuildStyles = false;
+  filepaths.forEach((filepath) => {
+    if (isScss(filepath)) {
+      rebuildStyles = true;
+    }
+  })
+  if (rebuildStyles) {
+    logTask('Build SCSS files');
+    return exec('gulp', ['sass']);
+  }
+}
+
+function rebuildServer(filepaths) {
+  if (haltOperation) {
+    filepaths = []
+  }
+
+  filepaths.forEach((filepath) => {
+    if (inServer(filepath)) {
+      resetServer = true;
+    }
+  })
+  if (resetServer) {
+    logTask('Rebuild Server');
+  }
+  return Promise.all(filepaths.map(filepath => {
+    if (inServer(filepath) &&
+      isJS(filepath)
+      && !isTest(filepath)) {
+      //babel server/src --ignore __tests__ --out-dir lib
+
+      return exec('babel', [
+        filepath,
+        '--out-file', filepath.replace(/server\/src/, 'lib'),
+        srcPath(filepath)
+      ]);
+    }
+  }));
+}
 
 function parseFiles(filepaths) {
+  if (haltOperation) {
+    filepaths = []
+  }
 
   logTask('Checking Syntax');
-  bs.notify('rebuild: checking syntax');
+
   return Promise.all(filepaths.map(filepath => {
     if (isJS(filepath) && !isTest(filepath)) {
       return exec('babel', [
@@ -203,21 +316,32 @@ function parseFiles(filepaths) {
 }
 
 function runTests(filepaths) {
+  if (haltOperation) {
+    filepaths = []
+  }
+
   logTask('Running Tests');
-  bs.notify('rebuild: running tests');
+
   return exec('mocha', [
     '--reporter', 'nyan',
     '--require', 'scripts/mocha-bootload'
   ].concat(
     allTests(filepaths) ?
       filepaths.map(srcPath) :
-      ['server/src/**/__tests__/**/*.js']
-  )).catch(() => false);
+      [
+        'client/src/**/__tests__/**/*.js',
+        'server/src/**/__tests__/**/*.js'
+      ]
+  )).catch(() => logError('Unit tests failed'))
 }
 
 function lintFiles(filepaths) {
+  if (haltOperation) {
+    filepaths = []
+  }
+
   logTask('Linting Code');
-  bs.notify('rebuild: linting code');
+
 
   return filepaths.reduce((prev, filepath) => prev.then(prevSuccess => {
     process.stdout.write('  ' + filepath + ' ...');
@@ -226,7 +350,7 @@ function lintFiles(filepaths) {
     }
     return exec('eslint', [
       srcPath(filepath)])
-      .catch(() => false)
+      .catch(() => logError('Linting Code failed'))
       .then(success => {
         console.log(CLEARLINE + '  ' + (success ? CHECK : X) + ' ' + filepath);
         return prevSuccess && success;
@@ -237,15 +361,19 @@ function lintFiles(filepaths) {
 
 
 function typecheckStatus() {
+  if (haltOperation) {
+    return Promise.resolve();
+  }
   logTask('Type Checking');
-  bs.notify('rebuild: type checking...');
-  return exec(flowBinPath, ['status']).catch(() => false);
+
+  return exec(flowBinPath, ['status'])
+    .catch(() => logError('Type Checking failed'))
 }
 
 // Filepath
 
 function srcPath(filepath) {
-  bs.notify('file changed', filepath);
+
   return resolvePath(srcDir, filepath);
 }
 
@@ -259,6 +387,13 @@ function isScss(filepath) {
   return filepath.indexOf('.scss') === filepath.length - 5;
 }
 
+function inClient(filepath) {
+  return filepath.indexOf('client/src') >= 0;
+}
+
+function inServer(filepath) {
+  return filepath.indexOf('server/src') >= 0;
+}
 
 function allTests(filepaths) {
   return filepaths.length > 0 && filepaths.every(isTest);

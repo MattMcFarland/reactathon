@@ -6,6 +6,7 @@ import {
 } from '../modules';
 
 // console.log('appConfig', appConfig);
+// console.log('congrats u updated file right');
 
 const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'development';

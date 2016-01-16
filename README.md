@@ -102,6 +102,16 @@ Deploy options are further down the guide :)
   - Heroku
 - Winston logging
 
+
+### Changelog
+
+- 0.1.0
+
+  - Fixed critical issue with example env vars not loading
+  - Improved watch script speed
+
+- 0.0.0 -- start
+
 ### License
 
 The MIT License

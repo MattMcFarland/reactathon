@@ -14,9 +14,10 @@ import {
   FileStore,
   schema,
   graph,
-  appConfig,
-  dotenv
+  appConfig
 } from './modules';
+
+
 
 /**
  * Import Routes  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -46,7 +47,8 @@ import {
 // =============================================================================
 
 // Globals
-dotenv.load({ path: path.join(__dirname, 'env-example') });
+
+
 
 
 const app = express();
@@ -61,6 +63,9 @@ const stylePath = path.join(
 );
 const store = new FileStore();
 app.set('config', appConfig);
+
+
+
 
 
 
@@ -188,6 +193,8 @@ app.set('config', appConfig);
       });
     });
   }
+
+
 
 
 
