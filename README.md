@@ -109,6 +109,7 @@ Deploy options are further down the guide :)
 
   - Fixed critical issue with example env vars not loading
   - Improved watch script speed
+  - Add Token to model
 
 - 0.0.0 -- start
 
