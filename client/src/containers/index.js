@@ -8,5 +8,4 @@ export { Tag } from './Tag';
 export { Login } from './Login';
 export { SignUp } from './SignUp';
 export { Dashboard } from './Dashboard';
-
-
+export { User } from './User';

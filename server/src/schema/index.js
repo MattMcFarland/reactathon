@@ -481,11 +481,11 @@ var GraphAPI = new GraphQLObjectType({
       resolve: (root, args) =>
         connectionFromPromisedArray(resolveModelsByClass(User), args)
     },
-    userById: {
+    user: {
       type: userType,
       args: {
         id: {
-          type: new GraphQLNonNull(GraphQLInt)
+          type: new GraphQLNonNull(GraphQLString)
         }
       },
       resolve: (obj, { id }) => (User.findById(id))
@@ -532,6 +532,30 @@ var GraphAPI = new GraphQLObjectType({
 
 
 
-export default new GraphQLSchema({
-  query: GraphAPI
+
+var Root = new GraphQLObjectType({
+  name: 'Root',
+  fields: {
+    viewer: {
+      type: GraphAPI,
+      resolve: () => 'API'
+    },
+    user: {
+      type: userType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      resolve: (obj, { id }) => (User.findById(id))
+    },
+    node: nodeField
+  }
 });
+
+
+
+export default new GraphQLSchema({
+  query: Root
+});
+

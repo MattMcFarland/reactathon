@@ -105,6 +105,9 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+- 0.4.1
+  - Fix RelayJS
+
 - 0.4.0
   - Implements Github oauth2 flow
 

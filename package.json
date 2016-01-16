@@ -137,6 +137,11 @@
       "babelify"
     ]
   },
+  "metadata": {
+    "graphql": {
+      "schema": "./data/schema.json"
+    }
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MattMcFarland/reactathon/issues"

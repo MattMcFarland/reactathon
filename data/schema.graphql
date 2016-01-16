@@ -78,7 +78,7 @@ type FlagEdge {
 type GraphAPI {
   id: ID!
   users(after: String, first: Int, before: String, last: Int): UserConnection
-  userById(id: Int!): User
+  user(id: String!): User
   comments(after: String, first: Int, before: String, last: Int): CommentConnection
   tags(after: String, first: Int, before: String, last: Int): TagConnection
   votes(after: String, first: Int, before: String, last: Int): VoteConnection
@@ -96,6 +96,12 @@ type PageInfo {
   hasPreviousPage: Boolean!
   startCursor: String
   endCursor: String
+}
+
+type Root {
+  viewer: GraphAPI
+  user(id: String!): User
+  node(id: ID!): Node
 }
 
 type Tag implements Node {

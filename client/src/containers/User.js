@@ -13,7 +13,7 @@ const UserWebsite = () => (
 );
 
 
-class DashboardComponent extends React.Component {
+class UserComponent extends React.Component {
   constructor(props) {
     console.log(props);
 
@@ -43,18 +43,12 @@ class DashboardComponent extends React.Component {
   }
 }
 
-export const Dashboard = Relay.createContainer(DashboardComponent, {
-  initialVariables: {
-    id: '1'
-  },
+export const User = Relay.createContainer(UserComponent, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on GraphAPI {
-        user(id: $id) {
-          username,
-          displayName
-
-        }
+    user: () => Relay.QL`
+      fragment on User {
+        username,
+        displayName
       }
     `
   }
