@@ -105,6 +105,8 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+- 0.4.0
+  - Implements Github oauth2 flow
 
 - 0.3.0
   - Added social media button styling
