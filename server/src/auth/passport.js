@@ -128,7 +128,6 @@ passport.deserializeUser(function (user, done) {
   }));
 }
 
-
 /* Github */ {
   passport.use(new GitHubStrategy({
     clientID: config.GITHUB_ID,

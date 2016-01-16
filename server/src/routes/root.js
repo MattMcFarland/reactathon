@@ -13,7 +13,7 @@ root.get('*', function (req, res) {
     description: appConfig.www.description,
     google_analytics: appConfig.www.google_analytics,
     url: req.url,
-    user: req.user ? JSON.stringify(req.user) : ''
+    user: req.user ? JSON.stringify(req.user.id) : ''
   });
 });
 

@@ -63,7 +63,7 @@ export class Layout extends React.Component {
       Menu = ({}) => (
         <Nav pullRight style={{marginTop: '5px'}}>
 
-          <NavDropdown eventKey={3} title="User" id="user-dropdown">
+          <NavDropdown eventKey={3} title='User' id='user-dropdown'>
             <MenuItem onClick={gotoDashboard} eventKey={3.1}>
               Dashboard
             </MenuItem>
@@ -99,7 +99,7 @@ export class Layout extends React.Component {
             <Navbar.Brand>
               <Link
                 style={{paddingTop: '21px'}}
-                to="/">
+                to='/'>
                 <Logo />
               </Link>
             </Navbar.Brand>
@@ -110,14 +110,14 @@ export class Layout extends React.Component {
               <Navbar.Text>
                 <Link
                   activeClassName='active'
-                  className="nav-item nav-link btn btn-link"
-                  to="/page/about">About</Link>
+                  className='nav-item nav-link btn btn-link'
+                  to='/page/about'>About</Link>
               </Navbar.Text>
             </Nav>
             <Menu/>
           </Navbar.Collapse>
         </Navbar>
-        <section className="container">
+        <section className='container'>
           {this.props.children}
         </section>
         {showSignupModal ?
@@ -156,7 +156,7 @@ export class Layout extends React.Component {
           </Modal>
           : ''}
 
-        <NotificationSystem ref="notificationSystem" />
+        <NotificationSystem ref='notificationSystem' />
       </section>
     );
   }

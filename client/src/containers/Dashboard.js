@@ -83,7 +83,7 @@ class DashboardComponent extends React.Component {
 
 export const Dashboard = Relay.createContainer(DashboardComponent, {
   initialVariables: {
-    id: '1'
+    id: localStorage.getItem('user')
   },
   fragments: {
     viewer: () => Relay.QL`
