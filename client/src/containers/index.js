@@ -5,3 +5,5 @@ export { Page } from './Page';
 export { TagList } from './TagList';
 export { NoMatch } from './NoMatch';
 export { Tag } from './Tag';
+export { Login } from './Login';
+export { SignUp } from './SignUp';

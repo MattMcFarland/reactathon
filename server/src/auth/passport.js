@@ -128,7 +128,7 @@ passport.deserializeUser(function (user, done) {
   passport.use(new GitHubStrategy({
     clientID: config.GITHUB_ID,
     clientSecret: config.GITHUB_SECRET,
-    callbackURL: '/auth/github/callback',
+    callbackURL: config.GITHUB_CALLBACK_URL,
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
@@ -140,6 +140,9 @@ passport.deserializeUser(function (user, done) {
         }
         User.findOne({ where: {id: req.user.id} }).then(user => {
           user.github = profile.id;
+          user.pictureUrl = user.pictureUrl || profile._json.avatar_url;
+          user.location = user.location || profile._json.location;
+          user.website = user.website || profile._json.blog;
           user.createToken({kind: 'github', accessToken});
           user.save().then(done);
         });
@@ -158,7 +161,11 @@ passport.deserializeUser(function (user, done) {
           }
           User.create({
             github: profile.id,
-            email: profile._json.email
+            displayName: profile.displayName,
+            email: profile._json.email,
+            pictureUrl: profile._json.avatar_url,
+            location: profile._json.location,
+            website: profile._json.blog
           }).then(newUser => {
             newUser.createToken({kind: 'github', accessToken});
             done();

@@ -12,7 +12,11 @@ module.exports = function (sequelize, DataTypes) {
     },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    github: DataTypes.STRING,
+    pictureUrl: DataTypes.STRING,
+    website: DataTypes.STRING,
+    location: DataTypes.STRING
   }, {
     classMethods: {
       associate: (models) => {

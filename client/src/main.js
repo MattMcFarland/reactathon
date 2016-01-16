@@ -37,6 +37,8 @@ import {
   Home,
   NoMatch,
   Page,
+  Login,
+  SignUp,
   Tag,
   TagList
 } from './containers';
@@ -54,6 +56,8 @@ render((
     <Route path="/" component={Layout}>
       <IndexRoute component={Home} />
       <Route path="/" component={Home}/>
+      <Route path="/login" component={Login}/>
+      <Route path="/signup" component={SignUp}/>
       <Route path="/page/:id" component={Page}/>
       <Route path="articles" component={ArticleList} />
       <Route path="/articles/:id" component={Article}/>

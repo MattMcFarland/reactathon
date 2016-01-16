@@ -350,6 +350,24 @@ var userType = new GraphQLObjectType({
       description: 'URL to user avatar',
       resolve: (user => fromGravatar(user.email, 'thumbnailUrl'))
     },
+    github: {
+      type: GraphQLString,
+      description: 'Github ID',
+      resolve: (user => user.github)
+    },
+    pictureUrl: {
+      type: GraphQLString,
+      description: 'Github ID',
+      resolve: (user => user.pictureUrl)
+    },
+    website: {
+      type: GraphQLString,
+      resolve: (user => user.website)
+    },
+    location: {
+      type: GraphQLString,
+      resolve: (user => user.location)
+    },
     authoredArticles: {
       type: articleConnection,
       description: 'Retrieve Articles made by user.',

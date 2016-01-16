@@ -46,10 +46,6 @@ export class LoginForm extends React.Component {
   );
 
 
-  componentWillMount() {
-    window.ga('send', 'pageview', window.location.pathname + '#login');
-  }
-
   validate = () => {
     var errors = [];
     var { username,

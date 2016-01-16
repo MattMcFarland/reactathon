@@ -51,9 +51,6 @@ export class SignupForm extends React.Component {
   );
 
 
-  componentWillMount() {
-    window.ga('send', 'pageview', window.location.pathname);
-  }
 
   validate = () => {
     var errors = [];
