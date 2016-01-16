@@ -47,34 +47,44 @@ import {
 
 
 
+class Master extends React.Component {
 
-render((
-  <RelayRouter history={browserHistory}>
-    <Route
-      path="/"
-      component={Layout}>
-      <IndexRoute component={Home} />
-      <Route path="/" component={Home}/>
-      <Route
-        path="/users/:id"
-        component={User}
-        queries={{
+
+  render() {
+    return (
+      <RelayRouter history={browserHistory}>
+        <Route
+          path="/"
+          component={Layout}>
+          <IndexRoute component={Home} />
+          <Route path="/" component={Home}/>
+          <Route
+            path="/users/:id"
+            component={User}
+            queries={{
           user: () => Relay.QL`query { user(id: $id) }`
         }} />
-      <Route
-        path="/dashboard"
-        queries={{
+          <Route
+            path="/dashboard"
+            queries={{
           viewer: () => Relay.QL`query { viewer }`
         }}
-        component={Dashboard}/>
-      <Route path="/login" component={Login}/>
-      <Route path="/signup" component={SignUp}/>
-      <Route path="/page/:id" component={Page}/>
-      <Route path="articles" component={ArticleList} />
-      <Route path="/articles/:id" component={Article}/>
-      <Route path="tags" component={TagList}/>
-      <Route path="/tags/:id" component={Tag}/>
-      <Route path="*" component={NoMatch}/>
-    </Route >
-  </RelayRouter>
-), document.getElementById('main'));
+            component={Dashboard}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/signup" component={SignUp}/>
+          <Route path="/page/:id" component={Page}/>
+          <Route path="articles" component={ArticleList} />
+          <Route path="/articles/:id" component={Article}/>
+          <Route path="tags" component={TagList}/>
+          <Route path="/tags/:id" component={Tag}/>
+          <Route path="*" component={NoMatch}/>
+        </Route >
+      </RelayRouter>
+    );
+  }
+}
+Master.contextTypes = {
+  router: React.PropTypes.string
+};
+
+render(( <Master/> ), document.getElementById('main'));

@@ -11,12 +11,14 @@ import {
   // expressPhantom,
   passport,
   session,
-  FileStore,
+  SeqStore,
   schema,
   graph,
   appConfig
 } from './modules';
 
+
+import { db } from './database';
 
 
 /**
@@ -61,7 +63,7 @@ const jsPath = path.join(
 const stylePath = path.join(
   __dirname, '../bundles/style'
 );
-const store = new FileStore();
+const store = new SeqStore(db);
 app.set('config', appConfig);
 
 
@@ -115,7 +117,7 @@ app.set('config', appConfig);
   app.use(session({
     secret: process.env.SESSION_SECRET,
     name: '_reactathon',
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     store
   }));

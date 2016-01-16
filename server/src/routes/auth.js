@@ -15,7 +15,7 @@ const auth = express.Router();
   auth.get('/facebook/callback',
     passport.authenticate('facebook', {
       failureRedirect: '/login'}), (req, res) => {
-    res.redirect(req.session.returnTo || '/');
+    res.redirect(req.session.returnTo || '/dashboard');
   });
 }
 
@@ -26,7 +26,7 @@ const auth = express.Router();
   auth.get('/github/callback',
     passport.authenticate('github', {
       failureRedirect: '/login' }), (req, res) => {
-    res.redirect(req.session.returnTo || '/');
+    res.redirect(req.session.returnTo || '/dashboard');
   });
 }
 
@@ -39,7 +39,7 @@ const auth = express.Router();
   auth.get('/google/callback',
     passport.authenticate('google', {
       failureRedirect: '/login' }), (req, res) => {
-    res.redirect(req.session.returnTo || '/');
+    res.redirect(req.session.returnTo || '/dashboard');
   });
 }
 
@@ -50,9 +50,21 @@ const auth = express.Router();
   auth.get('/twitter/callback',
     passport.authenticate('twitter', {
       failureRedirect: '/login' }), (req, res) => {
-    res.redirect(req.session.returnTo || '/');
+    res.redirect(req.session.returnTo || '/dashboard');
   });
 }
+
+/* Reddit */ {
+  auth.get('/reddit',
+    passport.authenticate('reddit')
+  );
+  auth.get('/reddit/callback',
+    passport.authenticate('reddit', {
+      failureRedirect: '/login' }), (req, res) => {
+      res.redirect(req.session.returnTo || '/dashboard');
+    });
+}
+
 
 /* LinkedIn */ {
   auth.get('/linkedin',
@@ -62,7 +74,7 @@ const auth = express.Router();
   auth.get('/linkedin/callback',
     passport.authenticate('linkedin', {
       failureRedirect: '/login' }), (req, res) => {
-    res.redirect(req.session.returnTo || '/');
+    res.redirect(req.session.returnTo || '/dashboard');
   });
 }
 

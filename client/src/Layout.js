@@ -56,7 +56,7 @@ export class Layout extends React.Component {
     };
     let gotoDashboard = (e) => {
       e.preventDefault();
-      // TODO: figure out contexts
+      console.log(this.context.router);
       this.props.history.push('/dashboard');
     };
     if (this.state.user) {
@@ -128,7 +128,7 @@ export class Layout extends React.Component {
               <Modal.Title>Signup</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <SignupForm history={this.props.history}/>
+              <SignupForm />
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={onHideSignupForm}>
@@ -146,7 +146,7 @@ export class Layout extends React.Component {
               <Modal.Title>Login</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <LoginForm history={this.props.history}/>
+              <LoginForm />
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={onHideLoginForm}>

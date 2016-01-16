@@ -13,10 +13,17 @@ module.exports = function (sequelize, DataTypes) {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING,
-    github: DataTypes.STRING,
     pictureUrl: DataTypes.STRING,
     website: DataTypes.STRING,
-    location: DataTypes.STRING
+    location: DataTypes.STRING,
+    // oAuth Providers:
+    github: DataTypes.STRING,
+    reddit: DataTypes.STRING,
+    twitter: DataTypes.STRING,
+    facebook: DataTypes.STRING,
+    steam: DataTypes.STRING,
+    linkedin: DataTypes.STRING,
+    google: DataTypes.STRING
   }, {
     classMethods: {
       associate: (models) => {

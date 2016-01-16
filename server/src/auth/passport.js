@@ -43,8 +43,8 @@ passport.deserializeUser(function (user, done) {
   passport.use(new FacebookStrategy({
     clientID: config.FACEBOOK_ID,
     clientSecret: config.FACEBOOK_SECRET,
-    callbackURL: '/auth/facebook/callback',
-    profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
+    callbackURL: config.FACEBOOK_CALLBACK_URL,
+    profileFields: ['name', 'email', 'link'],
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
@@ -68,6 +68,7 @@ passport.deserializeUser(function (user, done) {
         User.findOne({
           where: { email: profile._json.email }}).then(emailExists => {
           if (emailExists) {
+            console.log('email already exists');
             // There is already a user that has this email in the db.
             return done();
           }
@@ -88,9 +89,10 @@ passport.deserializeUser(function (user, done) {
   passport.use(new RedditStrategy({
     clientID: config.REDDIT_ID,
     clientSecret: config.REDDIT_SECRET,
-    callbackURL: '/auth/reddit/callback',
+    callbackURL: config.REDDIT_CALLBACK_URL,
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
+    console.log('reddit', JSON.stringify(profile, null, 2));
     if (req.user) {
       User.findOne(
         {where: {reddit: profile.id}}).then(alreadyExists => {
@@ -119,8 +121,9 @@ passport.deserializeUser(function (user, done) {
             reddit: profile.id,
             email: profile._json.email
           }).then(newUser => {
-            newUser.createToken({kind: 'reddit', accessToken});
-            done();
+            newUser.createToken({kind: 'reddit', accessToken}).then(() => {
+              done();
+            });
           });
         });
       });
@@ -147,8 +150,9 @@ passport.deserializeUser(function (user, done) {
           user.pictureUrl = user.pictureUrl || profile._json.avatar_url;
           user.location = user.location || profile._json.location;
           user.website = user.website || profile._json.blog;
-          user.createToken({kind: 'github', accessToken});
-          user.save().then(done);
+          user.createToken({kind: 'github', accessToken}).then(() => {
+            user.save().then(done);
+          });
         });
       });
     } else {
@@ -171,8 +175,9 @@ passport.deserializeUser(function (user, done) {
             location: profile._json.location,
             website: profile._json.blog
           }).then(newUser => {
-            newUser.createToken({kind: 'github', accessToken});
-            done();
+            newUser.createToken({kind: 'github', accessToken}).then(() => {
+              done(newUser);
+            });
           });
         });
       });
@@ -185,7 +190,7 @@ passport.deserializeUser(function (user, done) {
   passport.use(new TwitterStrategy({
     consumerKey: config.TWITTER_KEY,
     consumerSecret: config.TWITTER_SECRET,
-    callbackURL: '/auth/twitter/callback',
+    callbackURL: config.TWITTER_CALLBACK_URL,
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
     if (req.user) {
@@ -196,8 +201,16 @@ passport.deserializeUser(function (user, done) {
         }
         User.findOne({ where: {id: req.user.id} }).then(user => {
           user.twitter = profile.id;
-          user.createToken({kind: 'twitter', accessToken});
-          user.save().then(done);
+          user.displayName = user.displayName || profile.displayName;
+          user.username = user.username || profile.username;
+          user.location = user.location || profile._json.location;
+          user.pictureUrl =
+            user.pictureUrl || profile._json.profile_image_url_https;
+          user.save().then((savedUser) => {
+            savedUser.createToken({kind: 'twitter', accessToken}).then(() => {
+              done(savedUser);
+            });
+          });
         });
       });
     } else {
@@ -208,10 +221,15 @@ passport.deserializeUser(function (user, done) {
         }
         User.create({
           twitter: profile.id,
+          displayName: profile.displayName,
+          location: profile._json.location,
+          username: profile.username,
+          pictureUrl: profile._json.profile_image_url_https,
           email: profile.username + '@twitter.com'
         }).then(newUser => {
-          newUser.createToken({kind: 'twitter', accessToken});
-          done();
+          newUser.createToken({kind: 'twitter', accessToken}).then(() => {
+            done(newUser);
+          });
         });
       });
     }
@@ -222,39 +240,55 @@ passport.deserializeUser(function (user, done) {
   passport.use(new GoogleStrategy({
     clientID: config.GOOGLE_ID,
     clientSecret: config.GOOGLE_SECRET,
-    callbackURL: '/auth/google/callback',
+    callbackURL: config.GOOGLE_CALLBACK_URL,
     passReqToCallback: true
   }, function (req, accessToken, refreshToken, profile, done) {
+
     if (req.user) {
       User.findOne(
         {where: {google: profile.id}}).then(alreadyExists => {
         if (alreadyExists) {
+          console.log('already exists');
           return done();
         }
         User.findOne({ where: {id: req.user.id} }).then(user => {
-          user.google = profile.id;
-          user.createToken({kind: 'google', accessToken});
-          user.save().then(done);
+          console.log('update user');
+          user.set('google', profile.id);
+          user.set('displayName', user.displayName || profile.displayName);
+          user.set('pictureUrl', user.pictureUrl || profile._json.image.url);
+          user.save().then((savedUser) => {
+            console.log('user saved, creating access token');
+            savedUser.createToken({kind: 'google', accessToken}).then(() => {
+              console.log('token created');
+              done(savedUser);
+            });
+          });
         });
       });
     } else {
       User.findOne(
         {where: {google: profile.id}}).then(existingUser => {
         if (existingUser) {
+          console.log('user already exists');
           return done(null, existingUser);
         }
         User.findOne({
           where: { email: profile.emails[0].value }}).then(emailExists => {
           if (emailExists) {
+            console.log('user email already exists');
             // There is already a user that has this email in the db.
             return done();
           }
           User.create({
             google: profile.id,
-            email: profile.emails[0].value
+            email: profile.emails[0].value,
+            displayName: profile.displayName,
+            pictureUrl: profile._json.image.url
           }).then(newUser => {
-            newUser.createToken({kind: 'google', accessToken});
-            done();
+            console.log('new user created');
+            newUser.createToken({kind: 'google', accessToken}).then(() => {
+              done(newUser);
+            });
           });
         });
       });
@@ -262,11 +296,12 @@ passport.deserializeUser(function (user, done) {
   }));
 }
 
+
 /* Steam */ {
   passport.use(new OpenIDStrategy({
     apiKey: config.STEAM_KEY,
     providerURL: 'http://steamcommunity.com/openid',
-    returnURL: 'http://localhost:3000/auth/steam/callback',
+    returnURL: config.STEAM_CALLBACK_URL,
     realm: 'http://localhost:3000/',
     stateless: true
   }, function (identifier, done) {
