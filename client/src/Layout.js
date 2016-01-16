@@ -54,12 +54,19 @@ export class Layout extends React.Component {
       e.preventDefault();
       AppActions.logout();
     };
+    let gotoDashboard = (e) => {
+      e.preventDefault();
+      // TODO: figure out contexts
+      this.props.history.push('/dashboard');
+    };
     if (this.state.user) {
       Menu = ({}) => (
         <Nav pullRight style={{marginTop: '5px'}}>
 
           <NavDropdown eventKey={3} title="User" id="user-dropdown">
-            <MenuItem eventKey={3.1}>Dashboard</MenuItem>
+            <MenuItem onClick={gotoDashboard} eventKey={3.1}>
+              Dashboard
+            </MenuItem>
             <MenuItem divider />
             <MenuItem onClick={logout} eventKey={3.2}>Logout</MenuItem>
           </NavDropdown>

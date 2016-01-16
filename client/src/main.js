@@ -40,22 +40,30 @@ import {
   Login,
   SignUp,
   Tag,
-  TagList
+  TagList,
+  Dashboard
 } from './containers';
 
-/*
-const CardQueries = {
-  cards: () => Relay.QL`query { store }`
-};
-*/
 
 
 
 render((
   <RelayRouter history={browserHistory}>
-    <Route path="/" component={Layout}>
+    <Route
+      path="/"
+      component={Layout}>
       <IndexRoute component={Home} />
       <Route path="/" component={Home}/>
+      <Route path="/users" component={Dashboard}>
+        <Route
+          component={Dashboard}
+          path=":id"
+          queries={{
+            id: () => Relay.QL`query { userById(id: $id) }`
+          }} />
+      </Route>
+      <Route path="/dashboard"
+             component={Dashboard}/>
       <Route path="/login" component={Login}/>
       <Route path="/signup" component={SignUp}/>
       <Route path="/page/:id" component={Page}/>
@@ -64,6 +72,6 @@ render((
       <Route path="tags" component={TagList}/>
       <Route path="/tags/:id" component={Tag}/>
       <Route path="*" component={NoMatch}/>
-    </Route>
+    </Route >
   </RelayRouter>
 ), document.getElementById('main'));

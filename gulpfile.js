@@ -7,6 +7,7 @@ const nodemon = require('gulp-nodemon');
 const bundle = require('./tasks/bundle');
 const bundlemin = require('./tasks/bundlemin');
 const bundledeps = require('./tasks/bundledeps');
+const bundledepsdebug = require('./tasks/bundledebugdeps');
 const sass = require('./tasks/sass');
 
 gulp.task('default', ['browser-sync']);
@@ -96,6 +97,10 @@ gulp.task('nodemon', function (cb) {
 gulp.task('bundle-vendor', (done) =>
   bundledeps('vendor', 'bundles/js/vendor', done)
 );
+gulp.task('bundle-vendor-debug', (done) =>
+  bundledepsdebug('vendor', 'bundles/js/vendor', done)
+);
+
 gulp.task('bundle', () =>
   bundlemin('client/src/main', 'main', 'bundles/js')
 );
@@ -105,6 +110,6 @@ gulp.task('bundle-dev', () =>
 gulp.task('sass', () =>
   sass('client/src/style/main.scss', 'main', 'bundles/style')
 );
-
-gulp.task('build', ['bundle-vendor', 'bundle', 'sass']);
+gulp.task('build-prod', ['bundle-vendor', 'bundle', 'sass']);
+gulp.task('build', ['bundle-vendor-debug', 'bundle-dev', 'sass']);
 gulp.task('dev', ['bundle-dev', 'sass']);

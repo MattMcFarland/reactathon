@@ -7,8 +7,12 @@ import {
   Vote
 } from '../database';
 
+import {
+  fromGravatar
+} from '../utils';
 
 import {
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLInt,
@@ -34,28 +38,6 @@ import {
   resolveModelsByClass
 } from 'sequelize-relay';
 
-
-const md5 = require('md5');
-const ajax = require('superagent');
-
-const fromGravatar = (email, key) => {
-  return new Promise((resolve) => {
-    let hash = md5(email.toLowerCase());
-    let uri = `http://www.gravatar.com/${hash}.json`;
-    ajax.get(uri).end((err, res) => {
-      // console.log(err, res);
-      if (err) {
-        resolve('');
-      } else {
-        try {
-          resolve(res.body.entry[0][key]);
-        } catch (er) {
-          resolve('');
-        }
-      }
-    });
-  });
-};
 
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -499,6 +481,15 @@ var GraphAPI = new GraphQLObjectType({
       resolve: (root, args) =>
         connectionFromPromisedArray(resolveModelsByClass(User), args)
     },
+    userById: {
+      type: userType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLInt)
+        }
+      },
+      resolve: (obj, { id }) => (User.findById(id))
+    },
     comments: {
       description: 'Sitewide User comments',
       type: commentConnection,
@@ -539,19 +530,8 @@ var GraphAPI = new GraphQLObjectType({
 });
 
 
-var Root = new GraphQLObjectType({
-  name: 'Root',
-  fields: {
-    store: {
-      type: GraphAPI,
-      resolve: () => 'API'
-    },
-    node: nodeField
-  }
-});
-
 
 
 export default new GraphQLSchema({
-  query: Root
+  query: GraphAPI
 });

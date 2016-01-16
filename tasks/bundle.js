@@ -3,6 +3,7 @@ const
   gulp = require('gulp'),
   source = require('vinyl-source-stream'),
   buffer = require('vinyl-buffer'),
+  sourcemaps = require('gulp-sourcemaps'),
   getNPMPackageIds = require('./helpers').getNPMPackageIds,
   gutil = require('gulp-util');
 
@@ -34,6 +35,8 @@ module.exports = function(entry, name, dest, callback) {
     .on('error', gutil.log)
     .pipe(source(name + '.js'))
     .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.write('./'))
     .on('end', () => {
       gutil.log('File Saved', gutil.colors.cyan(dest + '/' + name + '.js'));
       if (callback) callback();

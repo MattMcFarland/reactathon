@@ -17,6 +17,11 @@ import {
   User
 } from '../database';
 
+import {
+  getGravatar
+} from '../utils';
+
+
 const hash = (pwd) => {
   return crypto
     .createHash('sha1')
@@ -354,11 +359,16 @@ export function login() {
 
 function createUser({username, password, email}) {
   return new Promise((resolve, reject) => {
-    User.create({
-      username,
-      password: hash(password),
-      email: email
-    }).then((user) => resolve(user)).catch(err => reject(err));
+
+    getGravatar(email).then(data => {
+      User.create({
+        username,
+        password: hash(password),
+        email: email,
+        pictureUrl: data.thumbnailUrl || '',
+        displayName: data.displayName || username
+      }).then((user) => resolve(user)).catch(err => reject(err));
+    });
   });
 }
 

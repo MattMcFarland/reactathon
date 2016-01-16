@@ -108,6 +108,7 @@ var timeout;
 var resetServer = false;
 var shouldCopy = false;
 var haltOperation = false;
+var shouldUpdateSchema = false;
 
 function changeFile(filepath, root, stat) {
 
@@ -175,6 +176,7 @@ function checkFiles(filepaths) {
     .then(() => buildStyles(filepaths))
     .then(() => bundleClient(filepaths))
     .then(() => rebuildServer(filepaths))
+    .then(() => updateSchema())
     .then(() => copyFiles())
     .then(() => respawnServer())
     .then(() => syncBrowser())
@@ -221,6 +223,18 @@ function respawnServer() {
     });
   }
 }
+
+function updateSchema() {
+  if (haltOperation) {
+    return Promise.resolve('');
+  }
+  if (shouldUpdateSchema) {
+    logTask('Update GraphQL Schema');
+    shouldUpdateSchema = false;
+    return exec('npm', ['run', 'update-schema']);
+  }
+}
+
 
 function copyFiles() {
   if (haltOperation) {
@@ -276,6 +290,9 @@ function rebuildServer(filepaths) {
 
   filepaths.forEach((filepath) => {
     if (inServer(filepath)) {
+      if (filepath.indexOf('schema/index.js') >=0 ) {
+        shouldUpdateSchema = true;
+      }
       resetServer = true;
     }
   })
