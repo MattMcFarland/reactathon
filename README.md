@@ -25,7 +25,7 @@ by [Sahat Yalkabov](https://github.com/sahat)
 
 #### Current Roadmap:
 
-Current tasks and TODOS are using the issues board. This is more of a highlevel view of the project.
+[Current tasks and TODOS are using the issues board](https://github.com/MattMcFarland/reactathon/labels/TODO). This is more of a highlevel view of the project.
 The following will be completed for the v1.0.0 release. we will be using SEMVER.
 
 - [ ] Add an optional seeder that seeds the database with dummy data.
