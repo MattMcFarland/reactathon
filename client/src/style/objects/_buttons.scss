@@ -1,0 +1,54 @@
+.btn .fa.fix-left {
+  float: left;
+  height: 1em;
+  font-size: 26px;
+  border-right: thin ridge rgba(255, 255, 255, 0.3);
+  width: 45px;
+  margin-left: -15px;
+  margin-right: -45px;
+  &:after {
+    border-right: thin solid white;
+  }
+}
+
+
+.social-btn {
+  font-size: 18px;
+  color: white;
+  &:hover, &:focus, &:active {
+    color: white;
+  }
+  &-github {
+    background-color: $githubBlack;
+    &:hover, &:focus, &:active {
+      background-color: lighten($githubBlack, 10%);
+    }
+  }
+  &-google {
+    background-color: $googleRed;
+    &:hover, &:focus, &:active {
+      background-color: lighten($googleRed, 10%);
+    }
+  }
+  &-reddit {
+    background-color: $redditBlue;
+    color: black;
+    &:hover, &:focus, &:active {
+      background-color: lighten($redditBlue, 10%);
+      color: black;
+    }
+  }
+  &-twitter {
+    background-color: $twitterBlue;
+    &:hover, &:focus, &:active {
+      background-color: lighten($twitterBlue, 10%);
+    }
+  }
+  &-facebook {
+    background-color: $facebookBlue;
+    &:hover, &:focus, &:active {
+      background-color: lighten($facebookBlue, 10%);
+    }
+  }
+}
+

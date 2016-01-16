@@ -105,6 +105,14 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+
+- 0.3.0
+  - Added social media button styling
+  - Added client auth login logic
+
+- 0.2.0
+  - added adobe illustrator file
+
 - 0.1.0
 
   - Fixed critical issue with example env vars not loading

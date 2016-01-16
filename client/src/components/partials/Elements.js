@@ -1,8 +1,53 @@
 import React from 'react';
-import { Collapse } from 'react-bootstrap';
+import { Collapse, Button } from 'react-bootstrap';
+
+const performRedirect = (path) => (
+  window.location.href = path
+);
+
+const val = (prop) => (
+  Object.keys(prop).join(' ')
+);
+
+const redirect = {
+  github: () => performRedirect('/auth/github'),
+  reddit: () => performRedirect('/auth/reddit'),
+  twitter: () => performRedirect('/auth/twitter'),
+  facebook: () => performRedirect('/auth/facebook'),
+  google: () => performRedirect('/auth/google')
+};
+
+
+export const LeftIconButton = (props) => (
+  <button
+    type="button"
+    {...props}>
+    {props.children}
+  </button>
+);
+
+
+export const LoginWith = (account) => (
+  <div style={{maxWidth: '350px', margin: '8px auto'}}>
+  <LeftIconButton
+    block
+    className={'btn btn-block social-btn social-btn-' + val(account)}
+    onClick={redirect[val(account)]}>
+    <LeftFa {...account} />
+    &nbsp;Sign in with {val(account)}
+  </LeftIconButton>
+  </div>
+);
+
+
+export const LeftFa = (icon) => (
+  <span
+    style={{float: 'left'}}
+    className={'fa fa-' + val(icon) + ' fix-left'}/>
+);
 
 export const Fa = (icon) => (
-  <span className={'fa fa-' + Object.keys(icon).join(' ')}/>
+  <span className={'fa fa-' + val(icon)}/>
 );
 
 
@@ -24,16 +69,6 @@ export const Center = ({
   <section style={{textAlign: 'center'}}>
     {children}
   </section>
-);
-
-export const Button = ({
-  children,
-  onClick,
-  kind = 'info'
-  }) => (
-  <button onClick={onClick} type='button' className={'btn btn-' + kind}>
-    {children}
-  </button>
 );
 
 export const Icon = ({
