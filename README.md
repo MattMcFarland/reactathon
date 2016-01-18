@@ -105,6 +105,12 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+- 0.5.0
+  - add start of user dashboard
+  - add edge cases for signup and logout
+  - add oauth for github, google, twitter, and facebook.
+  - fix critical issue with missing files causing npm install to fail.
+
 - 0.4.1
   - Fix RelayJS
 
