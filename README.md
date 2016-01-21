@@ -108,6 +108,9 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+- 0.6.1
+  - update ecosystem.json to have correct value for development env
+
 - 0.6.0
   - add link/unlink social provider functionality to the dashboard view
 

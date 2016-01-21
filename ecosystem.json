@@ -38,7 +38,7 @@
       ref  : "origin/master",
       repo : "https://github.com/MattMcFarland/reactathon.git",
       path : "/var/www/development",
-      "post-deploy" : "npm install ; npm run build ; pm2 startOrRestart ecosystem.json --env dev",
+      "post-deploy" : "npm install ; npm run build ; pm2 startOrRestart ecosystem.json --env development",
       env  : {
         NODE_ENV: "dev"
       }
