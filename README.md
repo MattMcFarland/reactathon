@@ -108,6 +108,9 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+- 0.6.2
+  - Fix issue #16 (Slow dev startup)
+
 - 0.6.1
   - update ecosystem.json to have correct value for development env
 

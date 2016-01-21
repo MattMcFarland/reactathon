@@ -91,10 +91,13 @@ function startWatch() {
     }
     process.stdout.write(
       CLEARSCREEN + yellow(data) + '\n' +
-      green(invert('Watching...')
+      yellow(invert('Fire!')
       )
     );
-    bs.init({ proxy });
+    setTimeout(() => {
+      bs.init({ proxy });
+      console.log(green(invert('Watching...')));
+    }, 1000)
   });
 
 }
