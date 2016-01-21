@@ -14,6 +14,10 @@ import { AppActions } from './actions/AppActions';
 import { AppStore } from './stores/AppStore';
 import NotificationSystem from 'react-notification-system';
 
+const Content = ({children}) => (
+  <div>{children}</div>
+);
+
 export class Layout extends React.Component {
 
   constructor() {
@@ -45,7 +49,11 @@ export class Layout extends React.Component {
   render() {
 
     var Menu;
+
+    var name = this.props.location.pathname;
     let { showSignupModal, showLoginModal } = this.state;
+
+
     let onShowSignupForm = () => (AppActions.showSignupModal());
     let onShowLoginForm = () => (AppActions.showLoginModal());
     let onHideSignupForm = () => (AppActions.hideSignupModal());
@@ -56,7 +64,6 @@ export class Layout extends React.Component {
     };
     let gotoDashboard = (e) => {
       e.preventDefault();
-      console.log(this.context.router);
       this.props.history.push('/dashboard');
     };
     if (this.state.user) {
@@ -118,7 +125,9 @@ export class Layout extends React.Component {
           </Navbar.Collapse>
         </Navbar>
         <section className='container'>
-          {this.props.children}
+          <Content key={name}>
+            {this.props.children}
+          </Content>
         </section>
         {showSignupModal ?
           <Modal
@@ -161,3 +170,7 @@ export class Layout extends React.Component {
     );
   }
 }
+
+Layout.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};

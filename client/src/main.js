@@ -42,17 +42,19 @@ import {
   Tag,
   TagList,
   Dashboard,
-  User
+  User,
+  ResetRequest
 } from './containers';
 
 
 
 class Master extends React.Component {
 
-
   render() {
+
     return (
       <RelayRouter history={browserHistory}>
+
         <Route
           path="/"
           component={Layout}>
@@ -77,6 +79,7 @@ class Master extends React.Component {
           <Route path="/articles/:id" component={Article}/>
           <Route path="tags" component={TagList}/>
           <Route path="/tags/:id" component={Tag}/>
+          <Route path="/reset" component={ResetRequest}/>
           <Route path="*" component={NoMatch}/>
         </Route >
       </RelayRouter>

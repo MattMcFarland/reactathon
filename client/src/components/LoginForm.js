@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { FormErrors } from './partials';
 import { Center, LoginWith } from './partials/Elements';
 import {
@@ -36,6 +37,10 @@ export class LoginForm extends React.Component {
       username: '',
       password: ''
     });
+  };
+
+  handleForgotPasswordClick = () => {
+    AppActions.hideLoginModal();
   };
 
   handleUsernameChange = (e => this.onChange(
@@ -114,7 +119,8 @@ export class LoginForm extends React.Component {
     let {
       handleSubmit,
       handleUsernameChange,
-      handlePasswordChange
+      handlePasswordChange,
+      handleForgotPasswordClick
       } = this;
     // state
     let {
@@ -154,7 +160,13 @@ export class LoginForm extends React.Component {
                          value="Login" />
 
         }
-          <Button pullRight bsStyle="link">Forgot your password?</Button>
+          <Link
+            onClick={handleForgotPasswordClick}
+            to={{
+            pathname: '/reset'
+          }}>
+            Forgot your password?
+          </Link>
         </form>
       </section>
     );
