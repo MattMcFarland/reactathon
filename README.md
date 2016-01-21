@@ -12,6 +12,9 @@ by [Sahat Yalkabov](https://github.com/sahat)
   :wavy_dash: PM2 :wavy_dash: Microsoft Azure :wavy_dash: Heroku :wavy_dash:
 </p>
 
+### Philosophy
+
+This should work out of the box without any issues.
 
 ### Rapid start
 > For more info see [Getting Started](#getting-started)
@@ -51,7 +54,7 @@ so use at your own risk.
 **.1 - Clone the Repo:**
 
 ```sh
-git clone https://github.com/MattMcFarland/reactathon.git
+git clone https://github.com/MattMcFarland/reactathon.git myApp
 ```
 
 **.2 - Install Dependencies:**
@@ -104,6 +107,9 @@ Deploy options are further down the guide :)
 
 
 ### Changelog
+
+- 0.6.0
+  - add link/unlink social provider functionality to the dashboard view
 
 - 0.5.0
   - add start of user dashboard

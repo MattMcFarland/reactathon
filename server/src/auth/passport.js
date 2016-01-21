@@ -56,7 +56,8 @@ passport.deserializeUser(function (user, done) {
         User.findOne({ where: {id: req.user.id} }).then(user => {
           user.facebook = profile.id;
           user.createToken({kind: 'facebook', accessToken});
-          user.save().then(done);
+          user.save();
+          done();
         });
       });
     } else {
@@ -102,7 +103,8 @@ passport.deserializeUser(function (user, done) {
         User.findOne({ where: {id: req.user.id} }).then(user => {
           user.reddit = profile.id;
           user.createToken({kind: 'reddit', accessToken});
-          user.save().then(done);
+          user.save();
+          done();
         });
       });
     } else {
@@ -151,7 +153,8 @@ passport.deserializeUser(function (user, done) {
           user.location = user.location || profile._json.location;
           user.website = user.website || profile._json.blog;
           user.createToken({kind: 'github', accessToken}).then(() => {
-            user.save().then(done);
+            user.save();
+            done();
           });
         });
       });
@@ -208,7 +211,7 @@ passport.deserializeUser(function (user, done) {
             user.pictureUrl || profile._json.profile_image_url_https;
           user.save().then((savedUser) => {
             savedUser.createToken({kind: 'twitter', accessToken}).then(() => {
-              done(savedUser);
+              done();
             });
           });
         });
@@ -260,7 +263,7 @@ passport.deserializeUser(function (user, done) {
             console.log('user saved, creating access token');
             savedUser.createToken({kind: 'google', accessToken}).then(() => {
               console.log('token created');
-              done(savedUser);
+              done();
             });
           });
         });

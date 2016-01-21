@@ -1,3 +1,4 @@
+export const _ = require('lodash');
 export const passport = require('passport');
 export const express = require('express');
 export { appConfig } from '../modules';

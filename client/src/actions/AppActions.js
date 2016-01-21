@@ -16,6 +16,26 @@ class AppActionsSpec {
       'logoutSuccess',
       'logoutFail',
 
+      'facebookLinkPending',
+      'facebookLinkSuccess',
+      'facebookLinkFail',
+
+      'twitterLinkPending',
+      'twitterLinkSuccess',
+      'twitterLinkFail',
+
+      'redditLinkPending',
+      'redditLinkSuccess',
+      'redditLinkFail',
+
+      'githubLinkPending',
+      'githubLinkSuccess',
+      'githubLinkFail',
+
+      'googleLinkPending',
+      'googleLinkSuccess',
+      'googleLinkFail',
+
       'showSignupModal',
       'hideSignupModal',
       'showLoginModal',

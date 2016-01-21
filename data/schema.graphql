@@ -135,6 +135,10 @@ type User implements Node {
   email: String
   avatar: String
   github: String
+  google: String
+  twitter: String
+  facebook: String
+  reddit: String
   pictureUrl: String
   website: String
   location: String

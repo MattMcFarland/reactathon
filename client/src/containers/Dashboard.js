@@ -8,7 +8,8 @@ import {
   // Panel,
   Button,
   Input,
-  Thumbnail
+  Thumbnail,
+  ButtonInput
 } from 'react-bootstrap';
 
 
@@ -43,15 +44,40 @@ class DashboardComponent extends React.Component {
     super(props);
   }
 
+
+  onLinkFacebook = () => (window.location.href = '/auth/facebook');
+
+  onLinkGithub = () => (window.location.href = '/auth/github');
+
+  onLinkReddit = () => (window.location.href = '/auth/reddit');
+
+  onLinkGoogle = () => (window.location.href = '/auth/google');
+
+  onLinkTwitter = () => (window.location.href = '/auth/twitter');
+
+  onUnlinkFacebook = () => (window.location.href = '/auth/unlink/facebook');
+
+  onUnlinkGithub = () => (window.location.href = '/auth/unlink/github');
+
+  onUnlinkReddit = () => (window.location.href = '/auth/unlink/reddit');
+
+  onUnlinkGoogle = () => (window.location.href = '/auth/unlink/google');
+
+  onUnlinkTwitter = () => (window.location.href = '/auth/unlink/twitter');
+
   render() {
 
-    // TODO: Add oAuth Provider link/unlink feature
-
+    // Store
     let {
       website,
       email,
-      username } = this.props.viewer.user;
-
+      username,
+      github,
+      google,
+      twitter,
+      facebook,
+      reddit
+      } = this.props.viewer.user;
 
     return (
       <section>
@@ -71,6 +97,44 @@ class DashboardComponent extends React.Component {
               <Input type="email" readOnly value={email}/>
               <label>Website</label>
               <Input type="url" readOnly value={website}/>
+              <fieldset>
+                <legend>Providers</legend>
+                <label>Facebook</label>
+                <ButtonInput
+                  onClick={facebook ?
+                  this.onUnlinkFacebook :
+                  this.onLinkFacebook}>
+                  {facebook ? 'Unlink' : 'link'}
+                </ButtonInput>
+                <label>Reddit</label>
+                <ButtonInput
+                  onClick={reddit ?
+                  this.onUnlinkReddit :
+                  this.onLinkReddit}>
+                  {reddit ? 'Unlink' : 'link'}
+                </ButtonInput>
+                <label>Github</label>
+                <ButtonInput
+                  onClick={github ?
+                  this.onUnlinkGithub :
+                  this.onLinkGithub}>
+                  {github ? 'Unlink' : 'link'}
+                </ButtonInput>
+                <label>Google</label>
+                <ButtonInput
+                  onClick={google ?
+                  this.onUnlinkGoogle :
+                  this.onLinkGoogle}>
+                  {google ? 'Unlink' : 'link'}
+                </ButtonInput>
+                <label>Twitter</label>
+                <ButtonInput
+                  onClick={twitter ?
+                  this.onUnlinkTwitter :
+                  this.onLinkTwitter}>
+                  {twitter ? 'Unlink' : 'link'}
+                </ButtonInput>
+              </fieldset>
               <Button bsStyle="success">Edit Profile</Button>
             </form>
           </Col>
@@ -95,8 +159,12 @@ export const Dashboard = Relay.createContainer(DashboardComponent, {
           email,
           location,
           website,
-          pictureUrl
+          pictureUrl,
           github
+          google
+          twitter
+          facebook
+          reddit
         }
       }
     `

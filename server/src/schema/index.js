@@ -342,8 +342,28 @@ var userType = new GraphQLObjectType({
     },
     github: {
       type: GraphQLString,
-      description: 'Github ID',
+      description: 'Github Reference ID',
       resolve: (user => user.github)
+    },
+    google: {
+      type: GraphQLString,
+      description: 'Google Reference ID',
+      resolve: (user => user.google)
+    },
+    twitter: {
+      type: GraphQLString,
+      description: 'Twitter Reference ID',
+      resolve: (user => user.twitter)
+    },
+    facebook: {
+      type: GraphQLString,
+      description: 'Facebook reference ID',
+      resolve: (user => user.facebook)
+    },
+    reddit: {
+      type: GraphQLString,
+      description: 'Github Reference ID',
+      resolve: (user => user.reddit)
     },
     pictureUrl: {
       type: GraphQLString,
