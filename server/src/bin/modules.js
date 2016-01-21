@@ -5,3 +5,4 @@ export const database = require('../database');
 export const fs = require('fs');
 export const path = require('path');
 export { appConfig } from '../modules';
+export { logger } from '../utils';

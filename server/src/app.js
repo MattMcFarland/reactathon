@@ -14,7 +14,8 @@ import {
   SeqStore,
   schema,
   graph,
-  appConfig
+  appConfig,
+  logger
 } from './modules';
 
 
@@ -124,6 +125,11 @@ app.set('config', appConfig);
 
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.use((req, res, next) => {
+    logger.log('info', req.method, req.path);
+    next();
+  });
 }
 
 
@@ -189,6 +195,7 @@ app.set('config', appConfig);
   if (app.get('env') === 'development') {
     app.use(function (err, req, res) {
       res.status(err.status || 500);
+      logger.log('error', err);
       res.render('error', {
         message: err.message,
         error: err

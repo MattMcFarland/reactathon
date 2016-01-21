@@ -455,3 +455,6 @@ bundles
 
 # sessions
 sessions
+
+# logs
+*.log

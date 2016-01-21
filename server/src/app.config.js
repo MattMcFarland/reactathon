@@ -115,5 +115,16 @@ module.exports = {
       STEAM_KEY: process.env.STEAM_KEY,
       STEAM_CALLBACK_URL: process.env.STEAM_CALLBACK_URL
     }
+  },
+  logger: {
+    development: {
+      path: './reactathon.dev.log'
+    },
+    test: {
+      path: './reactathon.dev.log'
+    },
+    production: {
+      path: './reactathon.dev.log'
+    }
   }
 };

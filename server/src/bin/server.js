@@ -16,7 +16,8 @@ import {
   https,
   fs,
   database,
-  appConfig
+  appConfig,
+  logger
 } from './modules';
 
 /**
@@ -105,6 +106,7 @@ function normalizePort(val) {
 
 function addErrorListener(_server, _port) {
   return _server.on('error', (error => {
+    console.error(error);
     if (error.syscall !== 'listen') {
 
       throw error;
@@ -125,6 +127,8 @@ function addErrorListener(_server, _port) {
         process.exit(1);
         break;
       default:
+        logger.log('error', error);
+
         throw error;
     }
   }));
