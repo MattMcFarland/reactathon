@@ -108,14 +108,13 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
-- 0.6.2
-  - Fix issue #16 (Slow dev startup)
+- 0.7.0
+  - Add winston logger
 
-- 0.6.1
-  - update ecosystem.json to have correct value for development env
-
-- 0.6.0
-  - add link/unlink social provider functionality to the dashboard view
+- 0.6.x
+  - 0.6.2 - Fix issue #16 (Slow dev startup)
+  - 0.6.1 - update ecosystem.json to have correct value for development env
+  - 0.6.0 - add link/unlink social provider functionality to the dashboard view
 
 - 0.5.0
   - add start of user dashboard
@@ -123,11 +122,9 @@ Deploy options are further down the guide :)
   - add oauth for github, google, twitter, and facebook.
   - fix critical issue with missing files causing npm install to fail.
 
-- 0.4.1
-  - Fix RelayJS
-
-- 0.4.0
-  - Implements Github oauth2 flow
+- 0.4.x
+  - 0.4.1 - Fix relayJS
+  - 0.4.0 - Add Github oauth2 flow
 
 - 0.3.0
   - Added social media button styling
