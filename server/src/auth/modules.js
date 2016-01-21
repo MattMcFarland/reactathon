@@ -3,10 +3,11 @@ const env = process.env.NODE_ENV || 'development';
 // console.log(env);
 
 export const config = require('../app.config.js').auth[env];
-
 export const _ = require('lodash');
 export const request = require('request');
 export const passport = require('passport');
+export const nodemailer = require('nodemailer');
+export const promisify = require('promisify');
 export const LocalStrategy = require('passport-local').Strategy;
 export const crypto = require('crypto');
 export const InstagramStrategy = require('passport-instagram').Strategy;

@@ -111,6 +111,12 @@ app.set('config', appConfig);
 /*  Server I/O  ------------------------------------------------------------  */
 {
 
+  app.use((req, res, next) => {
+    logger.log('info', req.method, req.path);
+    req.logger = logger;
+    next();
+  });
+
   // i/o middlewares
   app.use(cookieParser());
   app.use(bodyParser.json());
@@ -126,10 +132,7 @@ app.set('config', appConfig);
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use((req, res, next) => {
-    logger.log('info', req.method, req.path);
-    next();
-  });
+
 }
 
 

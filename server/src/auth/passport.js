@@ -10,7 +10,8 @@ import {
   GoogleStrategy,
   OpenIDStrategy,
   RedditStrategy,
-  config
+  config,
+  nodemailer
 } from './modules';
 
 import {
@@ -28,6 +29,7 @@ const hash = (pwd) => {
     .update(pwd)
     .digest('hex');
 };
+
 
 
 // Serialized and deserialized methods when got from session
@@ -179,7 +181,7 @@ passport.deserializeUser(function (user, done) {
             website: profile._json.blog
           }).then(newUser => {
             newUser.createToken({kind: 'github', accessToken}).then(() => {
-              done(newUser);
+              done();
             });
           });
         });
@@ -357,15 +359,25 @@ export function isAuthorized(req, res, next) {
 
 
 passport.use('local', new LocalStrategy(
-  function (username, password, done) {
-    User.find({ where: { username: username } }).then(user => {
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+  function (usernameOrEmail, password, done) {
+    User.find({ where: { username: usernameOrEmail } }).then(userByName => {
+      if (!userByName) {
+        User.findOne({email: usernameOrEmail.toLowerCase()})
+          .then(userByEmail => {
+            if (!userByEmail) {
+              return done(null, false, { message: 'Incorrect username.' });
+            }
+            if (hash(password) !== userByEmail.password) {
+              return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, userByEmail);
+          });
+      } else {
+        if (hash(password) !== userByName.password) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        return done(null, userByName);
       }
-      if (hash(password) !== user.password) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
     }).catch(done);
   }
 ));
@@ -445,4 +457,75 @@ export function signUp() {
 }
 
 
+export function forgot() {
+  return function (req, res, next) {
+    crypto.randomBytes(16, (err, buf) => {
+      if (err) {
+        return next(err);
+      }
+      var token = buf.toString('hex');
+      User.findOne({email: req.body.email.toLowerCase()}).then(user => {
+        if (!user) {
+          req.logger.log('debug', 'user not found');
+          res.send('ok');
+        }
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+        user.save().then(() => {
+          var transporter = nodemailer.createTransport({
+            service: 'Mailgun',
+            auth: {
+              user: config.MAILGUN_USER,
+              pass: config.MAILGUN_PASSWORD
+            }
+          });
+          var mailOptions = {
+            to: user.email,
+            from: 'reactathon@starter.com',
+            subject: 'Reset your password on Reactathon Starter',
+            text: `
+              You are receiving this email because you (or someone else)
+              have requested the reset of the password for your account.\n\n
+              Please click on the following link, or paste this into your
+              browser to complete the process:\n\n
 
+              http://${req.headers.host + '/reset/' + token}\n\n
+
+              If you did not request this, please ignore this
+              email and your password will remain unchanged.\n`
+          };
+          transporter.sendMail(mailOptions, (e, r) => {
+            if (e) {
+              req.logger.log('error', e);
+            }
+            req.logger.log('info', r);
+            res.send('ok');
+          });
+        });
+      });
+    });
+  };
+}
+
+export function handleReset() {
+  return function (req, res, next) {
+    User.findOne({resetPasswordToken: req.params.token}, {
+      where: {
+        resetPasswordExpires: {
+          $gt: Date.now()
+        }
+      }
+    }).then(user => {
+      if (!user) {
+        res.status(400).send('Bad Request');
+      }
+
+      user.set('resetPasswordToken', null);
+      user.set('resetPasswordExpires', null);
+      user.set('password', hash(req.body.password));
+      user.save().then(() => {
+        res.send('ok');
+      }).catch(saveerr => next(saveerr));
+    }).catch(err => next(err));
+  };
+}

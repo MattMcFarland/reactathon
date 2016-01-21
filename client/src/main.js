@@ -43,7 +43,8 @@ import {
   TagList,
   Dashboard,
   User,
-  ResetRequest
+  ResetRequest,
+  ResetPassword
 } from './containers';
 
 
@@ -80,6 +81,7 @@ class Master extends React.Component {
           <Route path="tags" component={TagList}/>
           <Route path="/tags/:id" component={Tag}/>
           <Route path="/reset" component={ResetRequest}/>
+          <Route path="/reset/:token" component={ResetPassword}/>
           <Route path="*" component={NoMatch}/>
         </Route >
       </RelayRouter>

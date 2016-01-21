@@ -12,6 +12,8 @@ module.exports = function (sequelize, DataTypes) {
     },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
+    resetPasswordToken: DataTypes.STRING,
+    resetPasswordExpires: DataTypes.DATE,
     email: DataTypes.STRING,
     pictureUrl: DataTypes.STRING,
     website: DataTypes.STRING,

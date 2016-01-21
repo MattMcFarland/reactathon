@@ -3,5 +3,7 @@ export {
   isAuthenticated,
   onAuthenticate,
   signUp,
-  login
+  login,
+  forgot,
+  handleReset
 } from './passport';

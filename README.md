@@ -110,6 +110,10 @@ Deploy options are further down the guide :)
 
 - 0.7.0
   - Add winston logger
+  - Add Password reset views
+  - Add Password reset endpoint
+  - Add mailgun emailer
+  - Add server endpoint for reset/forgot
 
 - 0.6.x
   - 0.6.2 - Fix issue #16 (Slow dev startup)

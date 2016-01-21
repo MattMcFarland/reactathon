@@ -2,12 +2,13 @@ import {
   express, fs, path
 } from './modules';
 
-import { login, signUp } from '../auth';
+import {
+  login,
+  signUp,
+  handleReset,
+  forgot } from '../auth';
 
 let api = express.Router();
-
-// todo: create reset password route
-
 
 
 api.get('/page/:page_id', function (req, res, next) {
@@ -21,6 +22,14 @@ api.get('/page/:page_id', function (req, res, next) {
     }
   });
 
+});
+
+api.post('/reset', handleReset(), (req, res, next) => {
+  next();
+});
+
+api.post('/forgot', forgot(), (req, res, next) => {
+  next();
 });
 
 api.post('/login', login(), (req, res, next) => {

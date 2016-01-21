@@ -75,7 +75,9 @@ module.exports = {
       GOOGLE_SECRET: process.env.GOOGLE_SECRET,
       GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
       STEAM_KEY: process.env.STEAM_KEY,
-      STEAM_CALLBACK_URL: process.env.STEAM_CALLBACK_URL
+      STEAM_CALLBACK_URL: process.env.STEAM_CALLBACK_URL,
+      MAILGUN_USER: process.env.MAILGUN_USER,
+      MAILGUN_PASSWORD: process.env.MAILGUN_PASSWORD
     },
     test: {
       FACEBOOK_ID: process.env.FACEBOOK_ID,
@@ -94,7 +96,9 @@ module.exports = {
       GOOGLE_SECRET: process.env.GOOGLE_SECRET,
       GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
       STEAM_KEY: process.env.STEAM_KEY,
-      STEAM_CALLBACK_URL: process.env.STEAM_CALLBACK_URL
+      STEAM_CALLBACK_URL: process.env.STEAM_CALLBACK_URL,
+      MAILGUN_USER: process.env.MAILGUN_USER,
+      MAILGUN_PASSWORD: process.env.MAILGUN_PASSWORD
     },
     production: {
       FACEBOOK_ID: process.env.FACEBOOK_ID,
@@ -113,7 +117,9 @@ module.exports = {
       GOOGLE_SECRET: process.env.GOOGLE_SECRET,
       GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
       STEAM_KEY: process.env.STEAM_KEY,
-      STEAM_CALLBACK_URL: process.env.STEAM_CALLBACK_URL
+      STEAM_CALLBACK_URL: process.env.STEAM_CALLBACK_URL,
+      MAILGUN_USER: process.env.MAILGUN_USER,
+      MAILGUN_PASSWORD: process.env.MAILGUN_PASSWORD
     }
   },
   logger: {

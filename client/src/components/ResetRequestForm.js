@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ajax from 'superagent';
 import { Link } from 'react-router';
 
 import {
@@ -12,8 +12,9 @@ export class ResetRequestForm extends React.Component {
   constructor() {
     super();
     this.state = {
+      pending: false,
       email: '',
-      emailSent: false
+      emailSent: false,
     };
   }
 
@@ -22,17 +23,28 @@ export class ResetRequestForm extends React.Component {
   );
 
   handleSubmit = (e) => {
-    // let email = this.state.email;
+    let email = this.state.email;
     e.preventDefault();
     this.setState({
-      emailSent: true
+      pending: true
     });
+    if (this.state.emailSent) {
+      return;
+    }
+    ajax.post('/api/forgot')
+        .send({email})
+        .end((err, res) => {
+          this.setState({
+            emailSent: true
+          });
+          console.info(err, res);
+        });
 
   };
 
   render() {
 
-    let { emailSent, email } = this.state;
+    let { emailSent, email, pending } = this.state;
 
     if (emailSent) {
       return (
@@ -65,7 +77,10 @@ export class ResetRequestForm extends React.Component {
               onChange={this.handleInputChange}
               value={email}
               placeholder="Email address"/>
-            <ButtonInput bsStyle="primary" type="submit">
+            <ButtonInput
+              disabled={pending}
+              bsStyle="primary"
+              type="submit">
               Send reset link
             </ButtonInput>
           </fieldset>

@@ -150,3 +150,5 @@ function addStartListener(_server) {
     }
   });
 }
+
+global.logger = logger;
