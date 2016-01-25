@@ -21,7 +21,8 @@
     "start": "node --harmony ./lib/bin/server.js",
     "deploy:pm2": "npm test && npm run build && pm2 deploy ecosystem.json production",
     "stage:pm2": "npm test && npm run build && pm2 deploy ecosystem.json development",
-    "update-schema": "babel-node ./scripts/updateSchema.js"
+    "update-schema": "babel-node ./scripts/updateSchema.js",
+    "seed": "babel-node ./scripts/seed.js"
   },
   "options": {
     "mocha": "--require scripts/mocha-bootload server/src/**/__tests__/**/*.js"

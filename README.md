@@ -32,9 +32,8 @@ This should work out of the box without any issues.
 The following will be completed for the v1.0.0 release. we will be using SEMVER.
 
 - [ ] Add an optional seeder that seeds the database with dummy data.
-- [ ] Refactor oAuth2 passports for ajax implementation.
-- [ ] Add user profile page, dashboard page, and email support.
-- [ ] Add passport reset and passport forgot workflows.
+- [x] Add user profile page, dashboard page, and email support.
+- [x] Add passport reset and passport forgot workflows.
 - [ ] Add User posts and user follow actions / activities.
 - [ ] Need a working unit test framework for clientside.
 
@@ -67,13 +66,21 @@ npm install
 
 Edit `server/src/app.config.js` to setup everything.
 
-**.4 - Run the dev server**
+**.4 - Seed database**
+
+Optionally run the seeder to create dummy data.
+
+```sh
+npm run seed
+```
+
+**.5 - Run the dev server**
 
 ```sh
 npm run dev
 ```
 
-**.5 - Deploy when ready**
+**.6 - Deploy when ready**
 
 Deploy options are further down the guide :)
 
@@ -107,6 +114,9 @@ Deploy options are further down the guide :)
 
 
 ### Changelog
+
+- 0.9.0  (in progress)
+  - Add database seeder (Issue: #6)
 
 - 0.8.1
   - Update readme
