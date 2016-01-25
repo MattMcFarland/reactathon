@@ -115,6 +115,9 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+- 0.10.0
+  - Add nav items for articles
+
 - 0.9.0
   - Add database seeder (Issue: #6)
   - Add article list view (Issue: #3)

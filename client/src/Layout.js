@@ -66,11 +66,19 @@ export class Layout extends React.Component {
       e.preventDefault();
       this.props.history.push('/dashboard');
     };
+    let gotoAddNewArticle = (e) => {
+      e.preventDefault();
+      this.props.history.push('/add-article');
+    };
     if (this.state.user) {
       Menu = ({}) => (
         <Nav pullRight style={{marginTop: '5px'}}>
-
-          <NavDropdown eventKey={3} title='User' id='user-dropdown'>
+          <NavDropdown eventKey={2} title='Create' id='create-dropdown'>
+            <MenuItem onClick={gotoAddNewArticle} eventKey={2.1}>
+              Add New Article
+            </MenuItem>
+          </NavDropdown>
+          <NavDropdown eventKey={3} title='Account' id='user-dropdown'>
             <MenuItem onClick={gotoDashboard} eventKey={3.1}>
               Dashboard
             </MenuItem>
@@ -119,6 +127,12 @@ export class Layout extends React.Component {
                   activeClassName='active'
                   className='nav-item nav-link btn btn-link'
                   to='/page/about'>About</Link>
+              </Navbar.Text>
+              <Navbar.Text>
+                <Link
+                  activeClassName='active'
+                  className='nav-item nav-link btn btn-link'
+                  to='/articles'>Articles</Link>
               </Navbar.Text>
             </Nav>
             <Menu/>
