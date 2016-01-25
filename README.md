@@ -115,7 +115,7 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
-- 0.9.0  (in progress)
+- 0.9.0
   - Add database seeder (Issue: #6)
   - Add article list view (Issue: #3)
   - Add article detail view (Issue #20)
