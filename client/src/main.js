@@ -76,7 +76,11 @@ class Master extends React.Component {
           <Route path="/login" component={Login}/>
           <Route path="/signup" component={SignUp}/>
           <Route path="/page/:id" component={Page}/>
-          <Route path="articles" component={ArticleList} />
+          <Route path="articles"
+            queries={{
+              viewer: () => Relay.QL`query { viewer }`
+            }}
+            component={ArticleList}/>
           <Route path="/articles/:id" component={Article}/>
           <Route path="tags" component={TagList}/>
           <Route path="/tags/:id" component={Tag}/>

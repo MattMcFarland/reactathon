@@ -518,6 +518,15 @@ var GraphAPI = new GraphQLObjectType({
       },
       resolve: (obj, { id }) => (User.findById(id))
     },
+    article: {
+      type: articleType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      resolve: (obj, { id }) => (Article.findById(id))
+    },
     comments: {
       description: 'Sitewide User comments',
       type: commentConnection,
@@ -576,6 +585,15 @@ var Root = new GraphQLObjectType({
         }
       },
       resolve: (obj, { id }) => (User.findById(id))
+    },
+    article: {
+      type: articleType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      resolve: (obj, { id }) => (Article.findById(id))
     },
     node: nodeField
   }
