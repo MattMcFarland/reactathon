@@ -117,6 +117,8 @@ Deploy options are further down the guide :)
 
 - 0.9.0  (in progress)
   - Add database seeder (Issue: #6)
+  - Add article list view (Issue: #3)
+  - Add article detail view (Issue #20)
 
 - 0.8.1
   - Update readme

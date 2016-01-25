@@ -47,7 +47,17 @@ import {
   ResetPassword
 } from './containers';
 
+const viewerQuery = {
+  viewer: () => Relay.QL`query { viewer }`
+};
 
+const articleQuery = {
+  article: () => Relay.QL`
+    query {
+      article(id: $articleId)
+    }
+  `
+};
 
 class Master extends React.Component {
 
@@ -77,11 +87,11 @@ class Master extends React.Component {
           <Route path="/signup" component={SignUp}/>
           <Route path="/page/:id" component={Page}/>
           <Route path="articles"
-            queries={{
-              viewer: () => Relay.QL`query { viewer }`
-            }}
+            queries={viewerQuery}
             component={ArticleList}/>
-          <Route path="/articles/:id" component={Article}/>
+          <Route path="/articles/:articleId"
+            queries={articleQuery}
+            component={Article}/>
           <Route path="tags" component={TagList}/>
           <Route path="/tags/:id" component={Tag}/>
           <Route path="/reset" component={ResetRequest}/>

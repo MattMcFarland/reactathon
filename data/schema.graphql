@@ -1,15 +1,10 @@
 type Article implements Node {
   id: ID!
+  url: String
   dateCreated: String
   dateModified: String
   title: String
-  description: String
   content: String
-  shareUrl: String
-  imageUrl: String
-  size: Int
-  width: Int
-  height: Int
   visibility: String
   score: Int
   downVoteCount: Int
@@ -79,7 +74,6 @@ type GraphAPI {
   id: ID!
   users(after: String, first: Int, before: String, last: Int): UserConnection
   user(id: String!): User
-  article(id: String!): Article
   comments(after: String, first: Int, before: String, last: Int): CommentConnection
   tags(after: String, first: Int, before: String, last: Int): TagConnection
   votes(after: String, first: Int, before: String, last: Int): VoteConnection

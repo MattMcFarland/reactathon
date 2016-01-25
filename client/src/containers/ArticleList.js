@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
+import { Link } from 'react-router';
 import moment from 'moment';
 
 
@@ -7,11 +8,13 @@ const ArticleListItem = ({
   author,
   dateCreated,
   title,
-  content
+  content,
+  url
 }) => (
   <section>
     <header>
-      {author.username} posted an article {moment(dateCreated).fromNow()}.
+      {author.username} posted an article
+      <Link to={url}>{moment(dateCreated).fromNow()}.</Link>
     </header>
     <h5>{title}</h5>
     <p>{content}</p>
@@ -61,6 +64,7 @@ export const ArticleList = Relay.createContainer(ArticleListComponent, {
           edges {
             node {
               id
+              url
               author {
                 username
               }

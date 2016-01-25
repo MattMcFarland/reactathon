@@ -86,6 +86,10 @@ var articleType = new GraphQLObjectType({
   description: 'This is a description',
   fields: () => ({
     id: globalIdField(),
+    url: {
+      type: GraphQLString,
+      resolve: article => '/articles/' + article.id
+    },
     dateCreated: {
       type: GraphQLString,
       resolve: article => article.createdAt
@@ -99,35 +103,10 @@ var articleType = new GraphQLObjectType({
       description: 'User defined title of the article',
       resolve: article => article.title
     },
-    description: {
-      type: GraphQLString,
-      description: 'User defined description of the article ',
-      resolve: article => article.description
-    },
     content: {
       description: 'Code that is in the pic',
       type: GraphQLString,
       resolve: article => article.content
-    },
-    shareUrl: {
-      type: GraphQLString,
-      resolve: article => article.shareUrl
-    },
-    imageUrl: {
-      type: GraphQLString,
-      resolve: article => article.imageUrl
-    },
-    size: {
-      type: GraphQLInt,
-      resolve: article => article.size
-    },
-    width: {
-      type: GraphQLInt,
-      resolve: article => article.width
-    },
-    height: {
-      type: GraphQLInt,
-      resolve: article => article.height
     },
     visibility: {
       type: GraphQLString,
@@ -518,15 +497,6 @@ var GraphAPI = new GraphQLObjectType({
       },
       resolve: (obj, { id }) => (User.findById(id))
     },
-    article: {
-      type: articleType,
-      args: {
-        id: {
-          type: new GraphQLNonNull(GraphQLString)
-        }
-      },
-      resolve: (obj, { id }) => (Article.findById(id))
-    },
     comments: {
       description: 'Sitewide User comments',
       type: commentConnection,
@@ -593,7 +563,8 @@ var Root = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString)
         }
       },
-      resolve: (obj, { id }) => (Article.findById(id))
+      resolve: (obj, { id }) => (Article.findById(parseInt(id)))
+
     },
     node: nodeField
   }
