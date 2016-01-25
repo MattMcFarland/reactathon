@@ -530,7 +530,8 @@ var GraphAPI = new GraphQLObjectType({
       type: articleConnection,
       args: connectionArgs,
       resolve: (root, args) =>
-        connectionFromPromisedArray(resolveModelsByClass(Article), args)
+        connectionFromPromisedArray(
+          resolveModelsByClass(Article, { order: 'createdAt DESC'}), args)
     },
     node: nodeField
   })

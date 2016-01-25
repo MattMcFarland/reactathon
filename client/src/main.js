@@ -44,7 +44,8 @@ import {
   Dashboard,
   User,
   ResetRequest,
-  ResetPassword
+  ResetPassword,
+  AddNewArticle
 } from './containers';
 
 const viewerQuery = {
@@ -86,6 +87,7 @@ class Master extends React.Component {
           <Route path="/login" component={Login}/>
           <Route path="/signup" component={SignUp}/>
           <Route path="/page/:id" component={Page}/>
+          <Route path="/add-article" component={AddNewArticle}/>
           <Route path="articles"
             queries={viewerQuery}
             component={ArticleList}/>

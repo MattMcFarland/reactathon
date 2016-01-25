@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import moment from 'moment';
 
 
-class ArticleComponent {
+class ArticleComponent extends React.Component {
 
   render() {
 

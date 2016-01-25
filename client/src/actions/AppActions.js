@@ -16,6 +16,11 @@ class AppActionsSpec {
       'logoutSuccess',
       'logoutFail',
 
+      'addArticlePending',
+      'addArticleSuccess',
+      'addArticleFail',
+
+
       'requestNewPassword',
 
       'showSignupModal',
@@ -91,6 +96,42 @@ class AppActionsSpec {
         });
     this.actions.loginPending();
   }
+
+  addArticle({title, content}) {
+    ajax.post('/api/add-article')
+      .send({
+        title,
+        content
+      })
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (!err) {
+          if (res && res.body && res.body.user) {
+            this.actions.pushQueue({
+              level: 'success',
+              title: 'Success!',
+              message: 'Your article has been created!'
+            });
+            this.actions.shiftQueue();
+            this.actions.addArticleFail();
+            this.actions.addArticleSuccess(res.body.user);
+          } else {
+            this.actions.pushQueue({
+              level: 'error',
+              title: 'Oh snap!',
+              message: 'Something bad happened!'
+            });
+            this.actions.shiftQueue();
+            this.actions.addArticleFail();
+          }
+        } else {
+          this.actions.addArticleFail(err);
+        }
+      });
+    this.actions.addArticlePending();
+  }
+
   signup({username, password, email}) {
     ajax.post('/api/signup')
       .send({

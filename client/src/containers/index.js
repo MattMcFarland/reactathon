@@ -11,3 +11,5 @@ export { Dashboard } from './Dashboard';
 export { User } from './User';
 export { ResetRequest } from './ResetRequest';
 export { ResetPassword } from './ResetPassword';
+export { AddNewArticle } from './AddNewArticle';
+

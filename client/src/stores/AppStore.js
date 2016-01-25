@@ -63,6 +63,16 @@ class AppStoreSpec {
     this.loginPending = false;
     localStorage.removeItem('user');
   }
+
+  onAddArticleSuccess() {
+    this.addArticlePending = false;
+  }
+  onAddArticleFail() {
+    this.addArticlePending = false;
+  }
+
+
+
   onLogoutPending = () => (this.logoutPending = true);
 
   onLogoutSuccess() {
