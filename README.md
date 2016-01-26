@@ -115,6 +115,9 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+- 0.10.1
+  - Add resolve dependency
+
 - 0.10.0
   - Add nav items for articles
 
