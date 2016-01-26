@@ -2,9 +2,6 @@
 
 This repo is designed to work out of the box so you can kickstart your next project.
 
-> Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
-by [Sahat Yalkabov](https://github.com/sahat)
-
 <p align="center">
   <img src="banner.png"/>
   :wavy_dash: React.js :wavy_dash: Relay.js :wavy_dash: React-Router :wavy_dash: React-Bootstrap :wavy_dash:<br />
@@ -12,21 +9,26 @@ by [Sahat Yalkabov](https://github.com/sahat)
   :wavy_dash: PM2 :wavy_dash: Microsoft Azure :wavy_dash: Heroku :wavy_dash:
 </p>
 
-### Philosophy
+### Philosophy - A React-App on steroids
 
-This should work out of the box without any issues.
+Use this repository as a starting point to rapidly build and
+deploy an SEO-Ready WebApp with User Authentication and oAuth2 support
+using React, Relay, React-Router, Express, and much more!
+It uses modern libraries and tools to provide a highly functional base for your project with minimal startup effort.
+
+Reactathon was inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
+by [Sahat Yalkabov](https://github.com/sahat)
+
 
 ### Rapid start
-> For more info see [Getting Started](#getting-started)
-
+> These commands should work out of the box without any issues. When they complete, you will have a working web application running in your browser. For details, see [Getting Started](#getting-started) and [FAQ](#faq).
 
 ```sh
   git clone https://github.com/MattMcFarland/reactathon.git &&
   cd reactathon && npm install && npm run dev
 ```
-### Under active development
-
-#### Current Roadmap:
+### Current Roadmap:
+This project is under active development, both to implement the TODOs (below) and to make sure that it installs easily, so you can get to work on your own additions to the project.
 
 [Current tasks and TODOS are using the issues board](https://github.com/MattMcFarland/reactathon/labels/TODO). This is more of a highlevel view of the project.
 The following will be completed for the v1.0.0 release. we will be using SEMVER.
@@ -37,36 +39,25 @@ The following will be completed for the v1.0.0 release. we will be using SEMVER.
 - [ ] Add User posts and user follow actions / activities.
 - [ ] Need a working unit test framework for clientside.
 
-
-
-### A React-App on steroids
-
-This is to serve as a starting point for those who want to rapidly build and
-deploy an SEO-Ready WebApp with User Authentication and oAuth2 support
-using React, Relay, React-Router, Express, and much more!
-
-__Warning__:  Some of this boilerplate includes *experimental* technology,
-so use at your own risk.
-
 ### Getting started
 
-**.1 - Clone the Repo:**
+**1. Clone the Repo:**
 
 ```sh
 git clone https://github.com/MattMcFarland/reactathon.git myApp
 ```
 
-**.2 - Install Dependencies:**
+**2. Install Dependencies:**
 
 ```sh
 npm install
 ```
 
-**.3 - Edit App config**
+**3. Edit App config:**
 
 Edit `server/src/app.config.js` to setup everything.
 
-**.4 - Seed database**
+**4. Seed database:**
 
 Optionally run the seeder to create dummy data.
 
@@ -74,22 +65,19 @@ Optionally run the seeder to create dummy data.
 npm run seed
 ```
 
-**.5 - Run the dev server**
+**5. Run the dev server:**
 
 ```sh
 npm run dev
 ```
 
-**.6 - Deploy when ready**
+**6. Deploy when ready:**
 
 Deploy options are further down the guide :)
 
-### Tested System Requirements
-- Mac OSX or Linux
-- Node.js v5.3.0
-- Further testing needed to source our requirements
+### FAQ
 
-### Reactathon bells and whistles include:
+**What bells and whistles does Reactathon include?**
 
 - React.js
 - Node.js
@@ -112,6 +100,14 @@ Deploy options are further down the guide :)
   - Heroku
 - Winston logging
 
+**What are the System Requirements?** Reactathon has been tested with:
+- Mac OSX or Linux
+- Node.js v5.3.0
+- Further testing needed to source our requirements
+
+**Are the warnings important?** During the `npm install`, you may see warnings during `npm install` about deprecated or global packages. These are expected, and will not cause a problem. The project will be updated as needed to prevent setup problems.
+
+**Are any of the bundled packages experimental?** *Maybe... !?*
 
 ### Changelog
 
