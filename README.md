@@ -1,10 +1,3 @@
-###  Deployment ready boilerplate using React, Relay, React-Router, Express and Passport.
-
-This repo is designed to work out of the box so you can kickstart your next project.
-
-> Inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
-by [Sahat Yalkabov](https://github.com/sahat)
-
 <p align="center">
   <img src="banner.png"/>
   :wavy_dash: React.js :wavy_dash: Relay.js :wavy_dash: React-Router :wavy_dash: React-Bootstrap :wavy_dash:<br />
@@ -12,24 +5,29 @@ by [Sahat Yalkabov](https://github.com/sahat)
   :wavy_dash: PM2 :wavy_dash: Microsoft Azure :wavy_dash: Heroku :wavy_dash:
 </p>
 
-### Philosophy
+### Reactathon - Kickstart Your Next React-App  Project or Hackathon
 
-This should work out of the box without any issues.
+Reactathon works out of the box to so you can get working on your next project quickly.
+
+Its modern libraries and tools  provide a highly functional base for your project with minimal startup effort. 
+Rapidly build and deploy an SEO-Ready WebApp with User Authentication and oAuth2 support using React, Relay, React-Router, Express, and much more!
+
+Reactathon was inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
+by [Sahat Yalkabov](https://github.com/sahat)
+
 
 ### Rapid start
-> For more info see [Getting Started](#getting-started)
-
+These commands work out of the box without any issues. When they complete, you will have a working web application running in your browser. For details, see [Getting Started](#getting-started) and [FAQs](#faqs).
 
 ```sh
   git clone https://github.com/MattMcFarland/reactathon.git &&
   cd reactathon && npm install && npm run dev
 ```
-### Under active development
+### Current Roadmap:
+This project is under active development, both to implement the TODOs (below) and to make sure that it installs easily, so you can get to work on your own additions to the project.
 
-#### Current Roadmap:
-
-[Current tasks and TODOS are using the issues board](https://github.com/MattMcFarland/reactathon/labels/TODO). This is more of a highlevel view of the project.
-The following will be completed for the v1.0.0 release. we will be using SEMVER.
+[View current tasks and TODOS in the issues board](https://github.com/MattMcFarland/reactathon/labels/TODO). The items below provide a high-level view of the project.
+The following will be completed for the v1.0.0 release. We will be using SEMVER.
 
 - [ ] Add an optional seeder that seeds the database with dummy data.
 - [x] Add user profile page, dashboard page, and email support.
@@ -37,36 +35,26 @@ The following will be completed for the v1.0.0 release. we will be using SEMVER.
 - [ ] Add User posts and user follow actions / activities.
 - [ ] Need a working unit test framework for clientside.
 
-
-
-### A React-App on steroids
-
-This is to serve as a starting point for those who want to rapidly build and
-deploy an SEO-Ready WebApp with User Authentication and oAuth2 support
-using React, Relay, React-Router, Express, and much more!
-
-__Warning__:  Some of this boilerplate includes *experimental* technology,
-so use at your own risk.
-
 ### Getting started
 
-**.1 - Clone the Repo:**
+**1. Clone the Repo:**
 
 ```sh
-git clone https://github.com/MattMcFarland/reactathon.git myApp
+git clone https://github.com/MattMcFarland/reactathon.git 
 ```
 
-**.2 - Install Dependencies:**
+**2. Install Dependencies:**
 
 ```sh
+cd reactathon
 npm install
 ```
 
-**.3 - Edit App config**
+**3. Edit App config:**
 
 Edit `server/src/app.config.js` to setup everything.
 
-**.4 - Seed database**
+**4. Seed database:**
 
 Optionally run the seeder to create dummy data.
 
@@ -74,68 +62,73 @@ Optionally run the seeder to create dummy data.
 npm run seed
 ```
 
-**.5 - Run the dev server**
+**5. Run the dev server:**
 
 ```sh
 npm run dev
 ```
 
-**.6 - Deploy when ready**
+**6. Deploy when ready:**
 
 Deploy options are further down the guide :)
 
-### Tested System Requirements
-- Mac OSX or Linux
-- Node.js v5.3.0
-- Further testing needed to source our requirements
+### FAQs
 
-### Reactathon bells and whistles include:
+- **What bells and whistles does Reactathon include?**
 
-- React.js
-- Node.js
-- Express.js
-- Babel.js 6.3.x ES7 Stage 0
-- GraphQL
-- Relay ready
-- Sequelize SQL ORM
-- sqlite3 database
-- PhantomJS SEO
-- Passport.js with oAuth2 support
-  - SQL User database
-  - Github
-  - Facebook
-  - Twitter
-  - Google Plus
-- Deployment with the following suites:
-  - PM2
-  - Microsoft Azure
-  - Heroku
-- Winston logging
+	- React.js
+	- Node.js
+	- Express.js
+	- Babel.js 6.3.x ES7 Stage 0
+	- GraphQL
+	- Relay ready
+	- Sequelize SQL ORM
+	- sqlite3 database
+	- PhantomJS SEO
+  	- Winston logging
+	- Passport.js with oAuth2 support
+		- SQL User database
+		- Github
+  		- Facebook
+  		- Twitter
+  		- Google Plus
+	- Deployment with the following suites:
+  		- PM2
+  		- Microsoft Azure
+  		- Heroku
 
+- **What are the System Requirements?** Reactathon has been tested with:
+	- Mac OSX or Linux
+	- Node.js v5.3.0
+	- Further testing needed to source our requirements
+
+- **Are the warnings a concern?** During `npm install` you may see warnings about deprecated or global packages. These are expected, and will not cause a problem. Should they become a problem, the project will be updated as needed.
+
+- **Are any of the bundled packages experimental?** *Maybe... !?*
 
 ### Changelog
 
 - 0.10.1
   - Add resolve dependency
-
+  
 - 0.10.0
   - Add nav items for articles
-
+  
 - 0.9.0
   - Add database seeder (Issue: #6)
   - Add article list view (Issue: #3)
   - Add article detail view (Issue #20)
-
+  
 - 0.8.1
   - Update readme
 
 - 0.8.0
-
+  
   - Add Password reset views
   - Add Password reset endpoint
   - Add mailgun emailer
   - Add server endpoint for reset/forgot
-
+  
 - 0.7.0
 
   - Add winston logger
@@ -176,7 +169,6 @@ The MIT License
 
 ### Acknowledgements
 
-The codebase is heavily inspired from [Hackathon Starter](https://github.com/sahat/hackathon-starter).
-[Hackathon Starter](https://github.com/sahat/hackathon-starter) was created by Sahat Yalkabov in 2014 and is still very much in active development.
+The idea of this hackathon starter project is heavily inspired from [Hackathon Starter](https://github.com/sahat/hackathon-starter) that was created by Sahat Yalkabov in 2014 and is still very much in active development.
 
 
