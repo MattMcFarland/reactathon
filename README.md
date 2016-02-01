@@ -108,6 +108,10 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
+- 0.11.0
+  - Update readme
+  - Update package.json
+
 - 0.10.1
   - Add resolve dependency
   
