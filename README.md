@@ -108,7 +108,7 @@ Deploy options are further down the guide :)
 
 ### Changelog
 
-- 0.11.0
+- 0.10.2
   - Update readme
   - Update package.json
 
