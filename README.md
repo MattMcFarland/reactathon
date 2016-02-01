@@ -104,7 +104,11 @@ Deploy options are further down the guide :)
 
 - **Are the warnings a concern?** During `npm install` you may see warnings about deprecated or global packages. These are expected, and will not cause a problem. Should they become a problem, the project will be updated as needed.
 
-- **Are any of the bundled packages experimental?** *Maybe... !?*
+- **Are any of the bundled packages experimental?**
+
+Reactathon currently uses babel stage zero, which is considered experimental.
+As such, it is recommended to sustain upgrading babel until reactathon is
+more stable.
 
 ### Changelog
 
