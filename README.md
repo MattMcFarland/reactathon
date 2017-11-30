@@ -1,9 +1,7 @@
-<p align="center">
-  <img src="banner.png"/>
-  :wavy_dash: React.js :wavy_dash: Relay.js :wavy_dash: React-Router :wavy_dash: React-Bootstrap :wavy_dash:<br />
-  :wavy_dash: GraphQL :wavy_dash: Sequelize (SQL) :wavy_dash: Express.js :wavy_dash: Passport.js :wavy_dash: Babel.js :wavy_dash: Winston :wavy_dash:<br />
-  :wavy_dash: PM2 :wavy_dash: Microsoft Azure :wavy_dash: Heroku :wavy_dash:
-</p>
+# DEPRECATED
+This project has been superceded by the much more up-to-date, user-friendly, (react-create-app)[https://github.com/facebookincubator/create-react-app] - which is perfect for hackathons or kickstarting your next react app!
+
+---
 
 ### Reactathon - Kickstart Your Next React-App  Project or Hackathon
 
