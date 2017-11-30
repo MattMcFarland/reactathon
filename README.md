@@ -1,37 +1,7 @@
 # DEPRECATED
-This project has been superceded by the much more up-to-date, user-friendly, (react-create-app)[https://github.com/facebookincubator/create-react-app] - which is perfect for hackathons or kickstarting your next react app!
+This project has been superceded by the much more up-to-date, user-friendly, [react-create-app](https://github.com/facebookincubator/create-react-app) - which is perfect for hackathons or kickstarting your next react app!
 
 ---
-
-### Reactathon - Kickstart Your Next React-App  Project or Hackathon
-
-Reactathon works out of the box to so you can get working on your next project quickly.
-
-Its modern libraries and tools  provide a highly functional base for your project with minimal startup effort. 
-Rapidly build and deploy an SEO-Ready WebApp with User Authentication and oAuth2 support using React, Relay, React-Router, Express, and much more!
-
-Reactathon was inspired by [Hackathon Starter](https://github.com/sahat/hackathon-starter)
-by [Sahat Yalkabov](https://github.com/sahat)
-
-
-### Rapid start
-These commands work out of the box without any issues. When they complete, you will have a working web application running in your browser. For details, see [Getting Started](#getting-started) and [FAQs](#faqs).
-
-```sh
-  git clone https://github.com/MattMcFarland/reactathon.git &&
-  cd reactathon && npm install && npm run dev
-```
-### Current Roadmap:
-This project is under active development, both to implement the TODOs (below) and to make sure that it installs easily, so you can get to work on your own additions to the project.
-
-[View current tasks and TODOS in the issues board](https://github.com/MattMcFarland/reactathon/labels/TODO). The items below provide a high-level view of the project.
-The following will be completed for the v1.0.0 release. We will be using SEMVER.
-
-- [ ] Add an optional seeder that seeds the database with dummy data.
-- [x] Add user profile page, dashboard page, and email support.
-- [x] Add passport reset and passport forgot workflows.
-- [ ] Add User posts and user follow actions / activities.
-- [ ] Need a working unit test framework for clientside.
 
 ### Getting started
 
